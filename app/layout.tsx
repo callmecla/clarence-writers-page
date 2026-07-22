@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Work_Sans } from "next/font/google";
-import ThemeToggle from "@/components/ThemeToggle";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -28,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="day" className={`${fraunces.variable} ${workSans.variable}`}>
       <body>
-        <ThemeToggle />
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

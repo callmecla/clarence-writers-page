@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getNovels } from "@/lib/sanity/queries";
 import NovelCard from "@/components/NovelCard";
 
@@ -75,6 +76,61 @@ export default async function Home() {
           </div>
         )}
       </section>
+
+      <section style={{ padding: "0 6vw 130px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "2px",
+            background: "var(--line)",
+            borderRadius: "6px",
+            overflow: "hidden",
+          }}
+        >
+          <PreviewPanel href="/poetry" num="Poetry" title="short lines, held gently" text="A growing collection of poems — some finished, some just a good first line waiting for the rest." />
+          <PreviewPanel href="/diary" num="Diary" title="not everything, but something true" text="Reflections and fragments, posted when they're ready to be read rather than when they're written." />
+          <PreviewPanel href="/photos" num="Photographs" title="the light that started it" text="Images that inspired a page, a line, or a whole quiet afternoon." />
+        </div>
+      </section>
     </main>
+  );
+}
+
+function PreviewPanel({
+  href,
+  num,
+  title,
+  text,
+}: {
+  href: string;
+  num: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <Link
+      href={href}
+      style={{
+        background: "var(--paper)",
+        padding: "44px 34px",
+        minHeight: "220px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        textDecoration: "none",
+        color: "inherit",
+      }}
+    >
+      <span style={{ fontSize: "12px", color: "var(--moss)", letterSpacing: "0.1em" }}>{num}</span>
+      <div>
+        <h3 className="display" style={{ fontStyle: "italic", fontSize: "24px", marginTop: "18px" }}>
+          {title}
+        </h3>
+        <p style={{ fontSize: "13.5px", color: "var(--ink-soft)", marginTop: "10px", lineHeight: 1.6 }}>
+          {text}
+        </p>
+      </div>
+    </Link>
   );
 }
