@@ -1,0 +1,49 @@
+:root {
+  --sky-top: #dbe8d9;
+  --sky-bottom: #eef1e3;
+  --ink: #2c3a2b;
+  --ink-soft: #5b6b54;
+  --moss: #5f8a5f;
+  --gold: #c99a53;
+  --paper: #f3f0e1;
+  --paper-edge: #dfdac0;
+  --line: rgba(44, 58, 43, 0.14);
+  --transition-speed: 0.9s;
+}
+
+html[data-theme="night"] {
+  --sky-top: #0e1a15;
+  --sky-bottom: #0a1310;
+  --ink: #e7ecdf;
+  --ink-soft: #a3b39c;
+  --moss: #7fae82;
+  --gold: #e3b467;
+  --paper: #142219;
+  --paper-edge: #24352a;
+  --line: rgba(231, 236, 223, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 60%, var(--paper) 100%);
+  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+  min-height: 100vh;
+}
+
+.display {
+  font-family: var(--font-display), serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
