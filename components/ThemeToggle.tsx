@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "small-hours-theme";
+const STORAGE_KEY = "hello-rencey-theme";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<"day" | "night">("day");

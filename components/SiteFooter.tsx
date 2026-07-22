@@ -27,7 +27,7 @@ export default function SiteFooter() {
       </svg>
 
       <p>
-        small hours — a study kept by{" "}
+        hello, rencey! — a study kept by{" "}
         <span className="display" style={{ fontStyle: "italic", color: "var(--ink)" }}>
           Rencey
         </span>

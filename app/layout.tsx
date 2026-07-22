@@ -17,7 +17,7 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "small hours — a writer's collection",
+  title: "hello, rencey! — a writer's collection",
   description: "Novels, poems, diary entries, and photographs.",
 };
 

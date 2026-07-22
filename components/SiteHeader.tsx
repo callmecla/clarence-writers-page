@@ -28,7 +28,7 @@ export default function SiteHeader() {
           textDecoration: "none",
         }}
       >
-        small hours
+        hello, rencey!
       </Link>
 
       <div style={{ display: "flex", alignItems: "center", gap: "34px" }}>

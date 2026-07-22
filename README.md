@@ -1,4 +1,4 @@
-# small hours
+# hello, rencey!
 
 A writer's site — novels (teasers linking to Wattpad), poetry, diary entries, and
 photographs — built with Next.js, TypeScript, and Sanity as a free headless CMS.
