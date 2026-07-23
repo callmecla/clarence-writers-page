@@ -3,6 +3,7 @@ import { Fraunces, Work_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AmbientBackground from "@/components/AmbientBackground";
+import PageMood from "@/components/PageMood";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="day" className={`${fraunces.variable} ${workSans.variable}`}>
       <body>
+        <PageMood />
         <AmbientBackground />
         <SiteHeader />
         {children}

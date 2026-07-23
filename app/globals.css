@@ -191,3 +191,71 @@ html[data-theme="night"] .star { opacity: 1; }
   0%, 100% { opacity: 0.9; }
   50% { opacity: 0.3; }
 }
+
+/* ---------- page moods (blend with day/night, don't override it) ---------- */
+
+/* Novels — morning: soft blush sunrise fading into pale green */
+html[data-theme="day"][data-mood="morning"] {
+  --sky-top: #f3e6d9;
+  --sky-bottom: #eef2e0;
+  --ink: #33402f;
+  --ink-soft: #6b7660;
+  --moss: #7f9a6e;
+  --gold: #e3a76f;
+  --paper: #faf5e9;
+  --paper-edge: #ece1c9;
+}
+html[data-theme="night"][data-mood="morning"] {
+  --sky-top: #14202b;
+  --sky-bottom: #101a17;
+  --ink: #eaeee2;
+  --ink-soft: #a8b6a0;
+  --moss: #8fae86;
+  --gold: #e8b989;
+  --paper: #172420;
+  --paper-edge: #263630;
+}
+
+/* Poetry — midnight: dusty periwinkle by day, deep indigo/violet by night */
+html[data-theme="day"][data-mood="midnight"] {
+  --sky-top: #ccd2e9;
+  --sky-bottom: #e8e3ef;
+  --ink: #2c2a3d;
+  --ink-soft: #5e5a75;
+  --moss: #8b7fae;
+  --gold: #b98fd1;
+  --paper: #efeaf5;
+  --paper-edge: #ded5ea;
+}
+html[data-theme="night"][data-mood="midnight"] {
+  --sky-top: #0d0b18;
+  --sky-bottom: #07060f;
+  --ink: #e6e2f2;
+  --ink-soft: #a79fc0;
+  --moss: #9d8fc4;
+  --gold: #c9a3e8;
+  --paper: #16121f;
+  --paper-edge: #251f34;
+}
+
+/* Diary — summer: sun-drenched meadow gold and green */
+html[data-theme="day"][data-mood="summer"] {
+  --sky-top: #cdeec2;
+  --sky-bottom: #fbf3d0;
+  --ink: #33401f;
+  --ink-soft: #64754a;
+  --moss: #5c8f4a;
+  --gold: #dda838;
+  --paper: #fbf4de;
+  --paper-edge: #ecdfb0;
+}
+html[data-theme="night"][data-mood="summer"] {
+  --sky-top: #1b2410;
+  --sky-bottom: #120f08;
+  --ink: #eef2df;
+  --ink-soft: #b8c49f;
+  --moss: #7fae5c;
+  --gold: #f0c15a;
+  --paper: #1e2414;
+  --paper-edge: #313a1e;
+}
