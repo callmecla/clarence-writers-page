@@ -9,6 +9,7 @@ const MOOD_BY_PATH: Record<string, string> = {
   "/": "morning",
   "/poetry": "midnight",
   "/diary": "summer",
+  "/photos": "dusk",
 };
 
 export default function PageMood() {
