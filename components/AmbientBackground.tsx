@@ -1,87 +1,178 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { moodForPath } from "@/lib/moods";
 
 export default function AmbientBackground() {
-  const motesRef = useRef<HTMLDivElement>(null);
-  const starsRef = useRef<HTMLDivElement>(null);
-  const bokehRef = useRef<HTMLDivElement>(null);
-  const leavesRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const mood = moodForPath(pathname); // "morning" | "midnight" | "summer" | "dusk" | ""
 
+  const cloudsRef = useRef<HTMLDivElement>(null);
+  const birdsRef = useRef<HTMLDivElement>(null);
+  const stardustRef = useRef<HTMLDivElement>(null);
+  const starsRef = useRef<HTMLDivElement>(null);
+  const firefliesRef = useRef<HTMLDivElement>(null);
+  const petalsRef = useRef<HTMLDivElement>(null);
+  const dustRef = useRef<HTMLDivElement>(null);
+  const bokehRef = useRef<HTMLDivElement>(null);
+
+  // ---- Morning (Novels): clouds + gliding birds ----
   useEffect(() => {
-    // fireflies / rising motes
-    if (motesRef.current) {
-      const MOTE_COUNT = 22;
-      for (let i = 0; i < MOTE_COUNT; i++) {
-        const m = document.createElement("div");
-        m.className = "mote";
-        m.style.left = Math.random() * 100 + "vw";
-        m.style.animationDuration = 14 + Math.random() * 14 + "s";
-        m.style.animationDelay = Math.random() * -20 + "s";
-        motesRef.current.appendChild(m);
-      }
+    if (mood !== "morning") return;
+
+    if (cloudsRef.current) {
+      const shapes = [
+        { w: 220, h: 60, top: "10%" },
+        { w: 160, h: 46, top: "20%" },
+        { w: 190, h: 52, top: "6%" },
+      ];
+      shapes.forEach((s, i) => {
+        const c = document.createElement("div");
+        c.className = "cloud-shape";
+        c.style.top = s.top;
+        c.style.width = s.w + "px";
+        c.style.animationDuration = 70 + i * 25 + "s";
+        c.style.animationDelay = -(i * 20) + "s";
+        c.innerHTML = `<svg width="${s.w}" height="${s.h}" viewBox="0 0 ${s.w} ${s.h}">
+          <ellipse cx="${s.w * 0.25}" cy="${s.h * 0.6}" rx="${s.w * 0.22}" ry="${s.h * 0.4}"/>
+          <ellipse cx="${s.w * 0.5}" cy="${s.h * 0.4}" rx="${s.w * 0.2}" ry="${s.h * 0.35}"/>
+          <ellipse cx="${s.w * 0.72}" cy="${s.h * 0.6}" rx="${s.w * 0.22}" ry="${s.h * 0.38}"/>
+        </svg>`;
+        cloudsRef.current!.appendChild(c);
+      });
     }
 
-    // stars (only visible at night, via CSS)
+    if (birdsRef.current) {
+      const birdSVG = `<svg width="18" height="10" viewBox="0 0 18 10">
+        <path d="M0 5 Q4 -2 9 5 Q14 -2 18 5" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>`;
+      for (let i = 0; i < 5; i++) {
+        const b = document.createElement("div");
+        b.className = "bird";
+        b.style.top = 15 + Math.random() * 30 + "%";
+        b.style.animationDuration = 18 + Math.random() * 14 + "s";
+        b.style.animationDelay = -(Math.random() * 20) + "s";
+        b.innerHTML = birdSVG;
+        birdsRef.current!.appendChild(b);
+      }
+    }
+  }, [mood]);
+
+  // ---- Midnight (Poetry): stars + falling stardust + shooting stars ----
+  useEffect(() => {
+    if (mood !== "midnight") return;
+
     if (starsRef.current) {
-      const STAR_COUNT = 60;
-      for (let i = 0; i < STAR_COUNT; i++) {
+      for (let i = 0; i < 70; i++) {
         const s = document.createElement("div");
-        s.className = "star";
+        s.className = "mood-star";
         const size = 1 + Math.random() * 1.8;
         s.style.width = size + "px";
         s.style.height = size + "px";
         s.style.left = Math.random() * 100 + "vw";
-        s.style.top = Math.random() * 60 + "vh";
+        s.style.top = Math.random() * 65 + "vh";
         s.style.animationDuration = 2 + Math.random() * 3 + "s";
-        s.style.animationDelay = Math.random() * -4 + "s";
-        starsRef.current.appendChild(s);
+        s.style.animationDelay = -(Math.random() * 4) + "s";
+        starsRef.current!.appendChild(s);
+      }
+      // occasional shooting stars
+      for (let i = 0; i < 3; i++) {
+        const sh = document.createElement("div");
+        sh.className = "shooting-star";
+        sh.style.left = 60 + Math.random() * 30 + "vw";
+        sh.style.top = 5 + Math.random() * 25 + "vh";
+        sh.style.animationDuration = 8 + Math.random() * 6 + "s";
+        sh.style.animationDelay = -(Math.random() * 10) + "s";
+        starsRef.current!.appendChild(sh);
       }
     }
 
-    // bokeh dappled light
+    if (stardustRef.current) {
+      for (let i = 0; i < 16; i++) {
+        const d = document.createElement("div");
+        d.className = "stardust";
+        d.style.left = Math.random() * 100 + "vw";
+        d.style.setProperty("--drift", Math.random() * 40 - 20 + "px");
+        d.style.animationDuration = 10 + Math.random() * 10 + "s";
+        d.style.animationDelay = -(Math.random() * 18) + "s";
+        stardustRef.current!.appendChild(d);
+      }
+    }
+  }, [mood]);
+
+  // ---- Summer (Diary): fireflies + falling petals ----
+  useEffect(() => {
+    if (mood !== "summer") return;
+
+    if (firefliesRef.current) {
+      for (let i = 0; i < 20; i++) {
+        const f = document.createElement("div");
+        f.className = "firefly";
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.animationDuration = 14 + Math.random() * 14 + "s";
+        f.style.animationDelay = -(Math.random() * 20) + "s";
+        firefliesRef.current!.appendChild(f);
+      }
+    }
+
+    if (petalsRef.current) {
+      const petalSVG = `<svg width="14" height="14" viewBox="0 0 14 14">
+        <path d="M7 1 C11 1, 13 5, 7 13 C1 5, 3 1, 7 1Z" fill="#f3c9d6" opacity="0.9"/>
+      </svg>`;
+      for (let i = 0; i < 16; i++) {
+        const p = document.createElement("div");
+        p.className = "falling-petal";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.setProperty("--drift", Math.random() * 100 - 50 + "px");
+        p.style.animationDuration = 10 + Math.random() * 8 + "s";
+        p.style.animationDelay = -(Math.random() * 18) + "s";
+        p.innerHTML = petalSVG;
+        const svgEl = p.querySelector("svg") as HTMLElement | null;
+        if (svgEl) svgEl.style.animationDuration = 2 + Math.random() * 2 + "s";
+        petalsRef.current!.appendChild(p);
+      }
+    }
+
     if (bokehRef.current) {
-      const BOKEH_COUNT = 10;
-      for (let i = 0; i < BOKEH_COUNT; i++) {
+      for (let i = 0; i < 8; i++) {
         const b = document.createElement("div");
         b.className = "bo";
-        const size = 30 + Math.random() * 70;
+        const size = 30 + Math.random() * 60;
         b.style.width = size + "px";
         b.style.height = size + "px";
         b.style.left = Math.random() * 100 + "vw";
         b.style.top = Math.random() * 70 + "vh";
         b.style.animationDuration = 6 + Math.random() * 6 + "s";
-        b.style.animationDelay = Math.random() * -8 + "s";
-        bokehRef.current.appendChild(b);
+        b.style.animationDelay = -(Math.random() * 8) + "s";
+        bokehRef.current!.appendChild(b);
       }
     }
+  }, [mood]);
 
-    // falling leaves
-    if (leavesRef.current) {
-      const LEAF_COUNT = 14;
-      const leafSVG = (fillVar: string) => `
-        <svg width="16" height="16" viewBox="0 0 16 16">
-          <path d="M8 1 C13 3, 14 9, 8 15 C2 9, 3 3, 8 1Z" fill="${fillVar}" opacity="0.85"/>
-          <line x1="8" y1="2" x2="8" y2="14" stroke="rgba(0,0,0,0.15)" stroke-width="0.6"/>
-        </svg>`;
-      for (let i = 0; i < LEAF_COUNT; i++) {
-        const wrap = document.createElement("div");
-        wrap.className = "falling-leaf";
-        wrap.style.left = Math.random() * 100 + "vw";
-        wrap.style.setProperty("--drift", Math.random() * 80 - 40 + "px");
-        wrap.style.animationDuration = 12 + Math.random() * 10 + "s";
-        wrap.style.animationDelay = Math.random() * -20 + "s";
-        wrap.innerHTML = leafSVG(i % 2 === 0 ? "var(--moss)" : "var(--gold)");
-        const svgEl = wrap.querySelector("svg") as HTMLElement | null;
-        if (svgEl) svgEl.style.animationDuration = 2 + Math.random() * 2 + "s";
-        leavesRef.current.appendChild(wrap);
+  // ---- Dusk (Photos): drifting warm dust ----
+  useEffect(() => {
+    if (mood !== "dusk") return;
+
+    if (dustRef.current) {
+      for (let i = 0; i < 26; i++) {
+        const d = document.createElement("div");
+        d.className = "dust-particle";
+        const size = 2 + Math.random() * 3;
+        d.style.width = size + "px";
+        d.style.height = size + "px";
+        d.style.left = Math.random() * 100 + "vw";
+        d.style.top = Math.random() * 90 + "vh";
+        d.style.animationDuration = 5 + Math.random() * 6 + "s";
+        d.style.animationDelay = -(Math.random() * 8) + "s";
+        dustRef.current!.appendChild(d);
       }
     }
-  }, []);
+  }, [mood]);
 
   return (
     <>
-      {/* illustrated foliage framing the scene */}
+      {/* illustrated foliage framing the scene — present on every page, tinted per mood */}
       <div className="foliage top-left">
         <svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
           <path className="branch-line" d="M-10 20 Q 120 60 180 160 Q 210 220 260 240" fill="none" strokeWidth="4" />
@@ -96,7 +187,6 @@ export default function AmbientBackground() {
           <circle cx="195" cy="115" r="3" fill="var(--gold)" opacity="0.7" />
         </svg>
       </div>
-
       <div className="foliage top-right">
         <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
           <path className="branch-line" d="M470 10 Q 340 40 300 130 Q 280 190 230 220" fill="none" strokeWidth="4" />
@@ -108,7 +198,6 @@ export default function AmbientBackground() {
           <circle cx="330" cy="60" r="3.5" fill="var(--gold)" opacity="0.8" />
         </svg>
       </div>
-
       <div className="foliage bottom-left">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <path className="branch-line" d="M-10 290 Q 100 260 150 190 Q 175 150 220 130" fill="none" strokeWidth="4" />
@@ -119,35 +208,51 @@ export default function AmbientBackground() {
         </svg>
       </div>
 
-      {/* dappled sunlight / god rays */}
-      <div className="godrays">
-        <div className="ray ray1" />
-        <div className="ray ray2" />
-        <div className="ray ray3" />
-        <div className="ray ray4" />
-      </div>
+      {/* ---- Morning: sunrise, drifting clouds, birds, ground mist ---- */}
+      {mood === "morning" && (
+        <>
+          <div className="godrays">
+            <div className="ray ray1" /><div className="ray ray2" />
+            <div className="ray ray3" /><div className="ray ray4" />
+          </div>
+          <div className="clouds" ref={cloudsRef} />
+          <div className="birds" ref={birdsRef} />
+          <div className="mist"><span /><span /><span /></div>
+        </>
+      )}
 
-      {/* mood-specific atmosphere: morning mist, midnight moon glow,
-          summer/dusk sun flare, dusk vignette. Visibility is CSS-only,
-          driven by the data-mood attribute PageMood sets on <html>. */}
-      <div className="mist">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="moon-glow" />
-      <div className="sun-flare" />
-      <div className="vignette" />
+      {/* ---- Midnight: moon, stars, falling stardust, shooting stars ---- */}
+      {mood === "midnight" && (
+        <>
+          <div className="moon-glow" />
+          <div className="star-layer" ref={starsRef} />
+          <div className="stardust-layer" ref={stardustRef} />
+        </>
+      )}
 
-      {/* soft bokeh light, filled client-side */}
-      <div className="bokeh" ref={bokehRef} />
+      {/* ---- Summer: sun flare, fireflies, falling petals, bokeh ---- */}
+      {mood === "summer" && (
+        <>
+          <div className="godrays">
+            <div className="ray ray1" /><div className="ray ray2" />
+            <div className="ray ray3" /><div className="ray ray4" />
+          </div>
+          <div className="sun-flare" />
+          <div className="fireflies" ref={firefliesRef} />
+          <div className="petals-layer" ref={petalsRef} />
+          <div className="bokeh" ref={bokehRef} />
+        </>
+      )}
 
-      {/* gently falling leaves, filled client-side */}
-      <div className="leaves" ref={leavesRef} />
-
-      {/* fireflies (day, subtle) / stars (night) */}
-      <div className="motes" ref={motesRef} />
-      <div className="motes" ref={starsRef} />
+      {/* ---- Dusk: vignette, warm drifting dust, sweeping light leak ---- */}
+      {mood === "dusk" && (
+        <>
+          <div className="sun-flare soft" />
+          <div className="dust-layer" ref={dustRef} />
+          <div className="light-leak" />
+          <div className="vignette" />
+        </>
+      )}
     </>
   );
 }

@@ -2,21 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
-// Maps each section of the site to its own color mood.
-// Pages not listed here (e.g. /photos) just use the base day/night palette.
-const MOOD_BY_PATH: Record<string, string> = {
-  "/": "morning",
-  "/poetry": "midnight",
-  "/diary": "summer",
-  "/photos": "dusk",
-};
+import { moodForPath } from "@/lib/moods";
 
 export default function PageMood() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const mood = MOOD_BY_PATH[pathname] || "";
+    const mood = moodForPath(pathname);
     if (mood) {
       document.documentElement.setAttribute("data-mood", mood);
     } else {
