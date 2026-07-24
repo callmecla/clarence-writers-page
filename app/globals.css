@@ -137,64 +137,76 @@ html[data-theme="night"] .bo {
   50% { transform: translateY(-18px) scale(1.15); opacity: 0.9; }
 }
 
-.leaves { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
-.falling-leaf {
-  position: absolute;
+.moon-glow {
+  position: fixed;
+  top: 8%;
+  right: 8%;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(200,190,255,0.5), rgba(200,190,255,0) 70%);
+  mix-blend-mode: screen;
+  animation: glowPulse 6s ease-in-out infinite;
+}
+.sun-flare {
+  position: fixed;
   top: -6%;
-  animation-name: leafFall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-.falling-leaf svg { display: block; animation: leafSpin ease-in-out infinite; }
-@keyframes leafFall {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(112vh) translateX(var(--drift, 40px)); }
-}
-@keyframes leafSpin {
-  0%, 100% { transform: rotate(-18deg); }
-  50% { transform: rotate(18deg); }
-}
-
-.motes { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-.mote {
-  position: absolute;
-  bottom: -5%;
-  width: 5px;
-  height: 5px;
+  left: -6%;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 154, 83, 0.9), rgba(201, 154, 83, 0));
-  box-shadow: 0 0 8px 2px rgba(201, 154, 83, 0.5);
-  animation: drift linear infinite;
-  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,214,140,0.55), rgba(255,214,140,0) 70%);
+  mix-blend-mode: soft-light;
+  animation: glowPulse 7s ease-in-out infinite;
 }
-html[data-theme="night"] .mote {
-  background: radial-gradient(circle, rgba(227, 180, 103, 0.9), rgba(227, 180, 103, 0));
-  box-shadow: 0 0 8px 2px rgba(227, 180, 103, 0.5);
+.sun-flare.soft { opacity: 0.6; }
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
 }
-@keyframes drift {
-  0% { transform: translate(0, 0); opacity: 0; }
-  8% { opacity: 0.8; }
-  50% { transform: translate(20px, -52vh); }
-  92% { opacity: 0.5; }
-  100% { transform: translate(-10px, -105vh); opacity: 0; }
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(40,22,10,0.35) 100%);
 }
-.star {
+
+/* ---------- MORNING (Novels): clouds, birds, ground mist ---------- */
+.clouds { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.cloud-shape {
   position: absolute;
-  border-radius: 50%;
-  background: #fff;
-  opacity: var(--star-opacity, 0);
-  transition: opacity 1.2s ease;
-  animation: twinkle ease-in-out infinite;
+  opacity: 0.5;
+  filter: blur(1px);
+  animation: cloudDrift linear infinite;
 }
-@keyframes twinkle {
-  0%, 100% { opacity: calc(var(--star-opacity, 0) * 0.9); }
-  50% { opacity: calc(var(--star-opacity, 0) * 0.3); }
+.cloud-shape svg ellipse { fill: rgba(255,255,255,0.9); }
+html[data-theme="night"] .cloud-shape { opacity: 0.15; }
+@keyframes cloudDrift {
+  0% { transform: translateX(-30vw); }
+  100% { transform: translateX(130vw); }
 }
-html[data-theme="night"] { --star-opacity: 1; }
 
-.leaves { opacity: var(--leaf-opacity, 1); transition: opacity var(--transition-speed) ease; }
+.birds { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.bird {
+  position: absolute;
+  animation: birdFly linear infinite;
+}
+.bird svg { display: block; animation: wingFlap 0.6s ease-in-out infinite; }
+@keyframes birdFly {
+  0% { transform: translateX(-10vw); }
+  100% { transform: translateX(110vw); }
+}
+@keyframes wingFlap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.5); }
+}
 
-/* ---------- mood-specific atmosphere layers ---------- */
 .mist {
   position: fixed;
   bottom: 0;
@@ -203,8 +215,6 @@ html[data-theme="night"] { --star-opacity: 1; }
   height: 40vh;
   z-index: 2;
   pointer-events: none;
-  opacity: var(--mist-opacity, 0);
-  transition: opacity 1.2s ease;
   overflow: hidden;
 }
 .mist span {
@@ -225,57 +235,132 @@ html[data-theme="night"] { --star-opacity: 1; }
   50% { transform: translateX(6vw); }
 }
 
-.moon-glow {
-  position: fixed;
-  top: 8%;
-  right: 8%;
-  width: 240px;
-  height: 240px;
+/* ---------- MIDNIGHT (Poetry): stars, stardust, shooting stars ---------- */
+.star-layer { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.mood-star {
+  position: absolute;
   border-radius: 50%;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(200,190,255,0.5), rgba(200,190,255,0) 70%);
-  mix-blend-mode: screen;
-  opacity: var(--moon-glow-opacity, 0);
-  transition: opacity 1.2s ease;
-  animation: glowPulse 6s ease-in-out infinite;
+  background: #fff;
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.25; }
 }
 
-.sun-flare {
-  position: fixed;
+.stardust-layer { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.stardust {
+  position: absolute;
+  top: -4%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230,220,255,0.95), rgba(230,220,255,0));
+  box-shadow: 0 0 6px 1px rgba(200,180,255,0.6);
+  animation-name: stardustFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes stardustFall {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(108vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 1px rgba(255,255,255,0.8);
+  animation: shoot linear infinite;
+}
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+  transform: rotate(180deg);
+  transform-origin: right center;
+}
+@keyframes shoot {
+  0% { transform: translate(0, 0); opacity: 0; }
+  2% { opacity: 1; }
+  15% { transform: translate(-38vw, 22vh); opacity: 0; }
+  100% { transform: translate(-38vw, 22vh); opacity: 0; }
+}
+
+/* ---------- SUMMER (Diary): fireflies, falling petals ---------- */
+.fireflies { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.firefly {
+  position: absolute;
+  bottom: -5%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,193,90,0.9), rgba(240,193,90,0));
+  box-shadow: 0 0 8px 2px rgba(240,193,90,0.5);
+  animation: fireflyDrift linear infinite;
+}
+@keyframes fireflyDrift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  8% { opacity: 0.8; }
+  50% { transform: translate(20px, -52vh); }
+  92% { opacity: 0.5; }
+  100% { transform: translate(-10px, -105vh); opacity: 0; }
+}
+
+.petals-layer { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.falling-petal {
+  position: absolute;
   top: -6%;
-  left: -6%;
-  width: 320px;
-  height: 320px;
+  animation-name: petalFall;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.falling-petal svg { display: block; animation: petalSpin ease-in-out infinite; }
+@keyframes petalFall {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(112vh) translateX(var(--drift, 60px)); }
+}
+@keyframes petalSpin {
+  0%, 100% { transform: rotate(-25deg); }
+  50% { transform: rotate(25deg); }
+}
+
+/* ---------- DUSK (Photos): drifting dust, light leak ---------- */
+.dust-layer { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.dust-particle {
+  position: absolute;
   border-radius: 50%;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(255,214,140,0.55), rgba(255,214,140,0) 70%);
-  mix-blend-mode: soft-light;
-  opacity: var(--sunflare-opacity, 0);
-  transition: opacity 1.2s ease;
-  animation: glowPulse 7s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255,220,180,0.8), rgba(255,220,180,0));
+  filter: blur(0.5px);
+  animation: dustDrift ease-in-out infinite;
 }
-@keyframes glowPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+@keyframes dustDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(14px, -24px); opacity: 0.85; }
 }
 
-.vignette {
+.light-leak {
   position: fixed;
-  inset: 0;
-  z-index: 4;
+  inset: -20%;
+  z-index: 3;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(40,22,10,0.35) 100%);
-  opacity: var(--vignette-opacity, 0);
-  transition: opacity 1.2s ease;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,180,110,0.35) 50%, transparent 60%);
+  mix-blend-mode: soft-light;
+  animation: leakSweep 14s ease-in-out infinite;
+}
+@keyframes leakSweep {
+  0%, 70%, 100% { transform: translateX(-40%); opacity: 0; }
+  85% { transform: translateX(10%); opacity: 1; }
 }
 
-/* which mood shows which atmosphere layer */
-html[data-mood="morning"] { --mist-opacity: 0.7; --leaf-opacity: 0.4; }
-html[data-mood="midnight"] { --star-opacity: 0.85; --moon-glow-opacity: 0.8; --leaf-opacity: 0; }
-html[data-mood="summer"] { --sunflare-opacity: 0.6; }
-html[data-mood="dusk"] { --vignette-opacity: 1; --sunflare-opacity: 0.45; --leaf-opacity: 0.5; }
 
 /* ---------- page moods (blend with day/night, don't override it) ---------- */
 
