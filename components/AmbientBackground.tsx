@@ -127,6 +127,18 @@ export default function AmbientBackground() {
         <div className="ray ray4" />
       </div>
 
+      {/* mood-specific atmosphere: morning mist, midnight moon glow,
+          summer/dusk sun flare, dusk vignette. Visibility is CSS-only,
+          driven by the data-mood attribute PageMood sets on <html>. */}
+      <div className="mist">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="moon-glow" />
+      <div className="sun-flare" />
+      <div className="vignette" />
+
       {/* soft bokeh light, filled client-side */}
       <div className="bokeh" ref={bokehRef} />
 

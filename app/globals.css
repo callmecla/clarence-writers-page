@@ -182,15 +182,100 @@ html[data-theme="night"] .mote {
   position: absolute;
   border-radius: 50%;
   background: #fff;
-  opacity: 0;
+  opacity: var(--star-opacity, 0);
   transition: opacity 1.2s ease;
   animation: twinkle ease-in-out infinite;
 }
-html[data-theme="night"] .star { opacity: 1; }
 @keyframes twinkle {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.3; }
+  0%, 100% { opacity: calc(var(--star-opacity, 0) * 0.9); }
+  50% { opacity: calc(var(--star-opacity, 0) * 0.3); }
 }
+html[data-theme="night"] { --star-opacity: 1; }
+
+.leaves { opacity: var(--leaf-opacity, 1); transition: opacity var(--transition-speed) ease; }
+
+/* ---------- mood-specific atmosphere layers ---------- */
+.mist {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  z-index: 2;
+  pointer-events: none;
+  opacity: var(--mist-opacity, 0);
+  transition: opacity 1.2s ease;
+  overflow: hidden;
+}
+.mist span {
+  position: absolute;
+  bottom: -10%;
+  width: 60%;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%);
+  filter: blur(6px);
+  animation: mistDrift ease-in-out infinite;
+}
+.mist span:nth-child(1) { left: -10%; bottom: 0%; animation-duration: 26s; }
+.mist span:nth-child(2) { left: 30%; bottom: 8%; animation-duration: 32s; animation-delay: -8s; }
+.mist span:nth-child(3) { left: 55%; bottom: -2%; animation-duration: 22s; animation-delay: -14s; }
+@keyframes mistDrift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6vw); }
+}
+
+.moon-glow {
+  position: fixed;
+  top: 8%;
+  right: 8%;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(200,190,255,0.5), rgba(200,190,255,0) 70%);
+  mix-blend-mode: screen;
+  opacity: var(--moon-glow-opacity, 0);
+  transition: opacity 1.2s ease;
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.sun-flare {
+  position: fixed;
+  top: -6%;
+  left: -6%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,214,140,0.55), rgba(255,214,140,0) 70%);
+  mix-blend-mode: soft-light;
+  opacity: var(--sunflare-opacity, 0);
+  transition: opacity 1.2s ease;
+  animation: glowPulse 7s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(40,22,10,0.35) 100%);
+  opacity: var(--vignette-opacity, 0);
+  transition: opacity 1.2s ease;
+}
+
+/* which mood shows which atmosphere layer */
+html[data-mood="morning"] { --mist-opacity: 0.7; --leaf-opacity: 0.4; }
+html[data-mood="midnight"] { --star-opacity: 0.85; --moon-glow-opacity: 0.8; --leaf-opacity: 0; }
+html[data-mood="summer"] { --sunflare-opacity: 0.6; }
+html[data-mood="dusk"] { --vignette-opacity: 1; --sunflare-opacity: 0.45; --leaf-opacity: 0.5; }
 
 /* ---------- page moods (blend with day/night, don't override it) ---------- */
 
@@ -258,4 +343,26 @@ html[data-theme="night"][data-mood="summer"] {
   --gold: #f0c15a;
   --paper: #1e2414;
   --paper-edge: #313a1e;
+}
+
+/* Photos — dusk: warm golden-hour amber and copper, camera-vignette feel */
+html[data-theme="day"][data-mood="dusk"] {
+  --sky-top: #f0d9c0;
+  --sky-bottom: #f7ece0;
+  --ink: #3d2f22;
+  --ink-soft: #7a6a58;
+  --moss: #b98a5a;
+  --gold: #d98c3f;
+  --paper: #faf1e4;
+  --paper-edge: #ecdcc3;
+}
+html[data-theme="night"][data-mood="dusk"] {
+  --sky-top: #2a180f;
+  --sky-bottom: #170d08;
+  --ink: #f2e6d8;
+  --ink-soft: #c9b39c;
+  --moss: #c98a52;
+  --gold: #e8a95c;
+  --paper: #241a12;
+  --paper-edge: #372820;
 }
