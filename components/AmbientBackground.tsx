@@ -172,42 +172,6 @@ export default function AmbientBackground() {
 
   return (
     <>
-      {/* illustrated foliage framing the scene — present on every page, tinted per mood */}
-      <div className="foliage top-left">
-        <svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
-          <path className="branch-line" d="M-10 20 Q 120 60 180 160 Q 210 220 260 240" fill="none" strokeWidth="4" />
-          <path className="leaf-fill" d="M40 10 Q90 -10 110 40 Q90 70 40 60 Q10 40 40 10Z" />
-          <path className="leaf-fill-2" d="M90 40 Q150 20 170 80 Q140 110 90 90 Q60 65 90 40Z" />
-          <path className="leaf-fill" d="M20 70 Q70 55 90 110 Q55 135 20 115 Q-5 95 20 70Z" />
-          <path className="leaf-fill-2" d="M140 90 Q195 75 215 130 Q180 155 140 140 Q115 115 140 90Z" />
-          <path className="leaf-fill" d="M170 150 Q215 140 235 190 Q205 210 170 200 Q145 175 170 150Z" />
-          <path className="leaf-fill-2" d="M60 130 Q105 120 120 165 Q90 185 60 175 Q40 155 60 130Z" />
-          <path className="leaf-fill" d="M210 200 Q250 195 265 235 Q235 250 205 240 Q185 220 210 200Z" />
-          <circle cx="130" cy="55" r="4" fill="var(--gold)" opacity="0.8" />
-          <circle cx="195" cy="115" r="3" fill="var(--gold)" opacity="0.7" />
-        </svg>
-      </div>
-      <div className="foliage top-right">
-        <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
-          <path className="branch-line" d="M470 10 Q 340 40 300 130 Q 280 190 230 220" fill="none" strokeWidth="4" />
-          <path className="leaf-fill-2" d="M420 20 Q370 0 350 50 Q375 80 420 65 Q445 45 420 20Z" />
-          <path className="leaf-fill" d="M360 45 Q305 30 285 85 Q315 110 360 95 Q385 70 360 45Z" />
-          <path className="leaf-fill-2" d="M400 85 Q350 70 335 120 Q365 145 405 130 Q425 105 400 85Z" />
-          <path className="leaf-fill" d="M310 110 Q260 100 245 150 Q275 172 315 158 Q335 135 310 110Z" />
-          <path className="leaf-fill-2" d="M270 165 Q225 155 212 200 Q240 220 275 208 Q292 187 270 165Z" />
-          <circle cx="330" cy="60" r="3.5" fill="var(--gold)" opacity="0.8" />
-        </svg>
-      </div>
-      <div className="foliage bottom-left">
-        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-          <path className="branch-line" d="M-10 290 Q 100 260 150 190 Q 175 150 220 130" fill="none" strokeWidth="4" />
-          <path className="leaf-fill" d="M20 260 Q70 245 85 290 Q55 310 20 300 Q0 280 20 260Z" />
-          <path className="leaf-fill-2" d="M70 220 Q115 205 130 250 Q100 270 70 260 Q50 240 70 220Z" />
-          <path className="leaf-fill" d="M120 175 Q160 160 175 200 Q148 220 120 210 Q102 192 120 175Z" />
-          <circle cx="95" cy="240" r="3" fill="var(--gold)" opacity="0.7" />
-        </svg>
-      </div>
-
       {/* ---- Morning: sunrise, drifting clouds, birds, ground mist ---- */}
       {mood === "morning" && (
         <>

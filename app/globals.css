@@ -41,6 +41,23 @@ body {
   font-family: var(--font-display), serif;
 }
 
+/* ---------- page transitions ---------- */
+.page-transition {
+  animation: pageEnter 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
@@ -48,48 +65,7 @@ body {
   }
 }
 
-/* ---------- illustrated ambient background ---------- */
-.foliage {
-  position: fixed;
-  z-index: 2;
-  pointer-events: none;
-  transition: opacity var(--transition-speed) ease;
-}
-.foliage svg {
-  display: block;
-  filter: drop-shadow(0 10px 24px rgba(20, 30, 15, 0.15));
-}
-.foliage.top-left {
-  top: -4%;
-  left: -6%;
-  width: min(46vw, 520px);
-  animation: swayA 9s ease-in-out infinite;
-}
-.foliage.top-right {
-  top: -6%;
-  right: -8%;
-  width: min(38vw, 440px);
-  animation: swayB 11s ease-in-out infinite;
-}
-.foliage.bottom-left {
-  bottom: -8%;
-  left: -8%;
-  width: min(34vw, 400px);
-  animation: swayB 13s ease-in-out infinite;
-  opacity: 0.9;
-}
-@keyframes swayA {
-  0%, 100% { transform: rotate(-1.2deg); }
-  50% { transform: rotate(1deg); }
-}
-@keyframes swayB {
-  0%, 100% { transform: rotate(1.4deg); }
-  50% { transform: rotate(-1deg); }
-}
-.leaf-fill { fill: var(--moss); transition: fill var(--transition-speed) ease; }
-.leaf-fill-2 { fill: var(--moss); opacity: 0.8; transition: fill var(--transition-speed) ease; }
-.branch-line { stroke: var(--ink); stroke-opacity: 0.35; transition: stroke var(--transition-speed) ease; }
-
+/* ---------- god rays ---------- */
 .godrays {
   position: fixed;
   inset: 0;
