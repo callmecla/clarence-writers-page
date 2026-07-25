@@ -44,6 +44,7 @@ export default function SiteHeader() {
           <li><NavLink href="/poetry">Poetry</NavLink></li>
           <li><NavLink href="/diary">Diary</NavLink></li>
           <li><NavLink href="/photos">Photographs</NavLink></li>
+          <li><NavLink href="/about">About</NavLink></li>
         </ul>
         <ThemeToggle />
       </div>

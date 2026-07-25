@@ -16,6 +16,7 @@ export default function AmbientBackground() {
   const petalsRef = useRef<HTMLDivElement>(null);
   const dustRef = useRef<HTMLDivElement>(null);
   const bokehRef = useRef<HTMLDivElement>(null);
+  const embersRef = useRef<HTMLDivElement>(null);
 
   // ---- Morning (Novels): clouds + gliding birds ----
   useEffect(() => {
@@ -170,6 +171,25 @@ export default function AmbientBackground() {
     }
   }, [mood]);
 
+  // ---- Twilight (About): slow rising embers around a lantern glow ----
+  useEffect(() => {
+    if (mood !== "twilight") return;
+
+    if (embersRef.current) {
+      for (let i = 0; i < 14; i++) {
+        const e = document.createElement("div");
+        e.className = "ember";
+        const size = 3 + Math.random() * 3;
+        e.style.width = size + "px";
+        e.style.height = size + "px";
+        e.style.left = Math.random() * 100 + "vw";
+        e.style.animationDuration = 16 + Math.random() * 14 + "s";
+        e.style.animationDelay = -(Math.random() * 22) + "s";
+        embersRef.current!.appendChild(e);
+      }
+    }
+  }, [mood]);
+
   return (
     <>
       {/* ---- Morning: sunrise, drifting clouds, birds, ground mist ---- */}
@@ -215,6 +235,14 @@ export default function AmbientBackground() {
           <div className="dust-layer" ref={dustRef} />
           <div className="light-leak" />
           <div className="vignette" />
+        </>
+      )}
+
+      {/* ---- Twilight: lantern glow, slow rising embers ---- */}
+      {mood === "twilight" && (
+        <>
+          <div className="lantern-glow" />
+          <div className="embers-layer" ref={embersRef} />
         </>
       )}
     </>

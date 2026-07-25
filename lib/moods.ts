@@ -7,6 +7,7 @@ export const MOOD_BY_PATH: Record<string, string> = {
   "/poetry": "midnight",
   "/diary": "summer",
   "/photos": "dusk",
+  "/about": "twilight",
 };
 
 export function moodForPath(pathname: string): string {
