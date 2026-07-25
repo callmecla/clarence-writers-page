@@ -337,6 +337,39 @@ html[data-theme="night"] .cloud-shape { opacity: 0.15; }
   85% { transform: translateX(10%); opacity: 1; }
 }
 
+/* ---------- TWILIGHT (About): lantern glow, slow embers ---------- */
+.lantern-glow {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(230, 170, 120, 0.4), rgba(230, 170, 120, 0) 70%);
+  mix-blend-mode: screen;
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+.embers-layer { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.ember {
+  position: absolute;
+  bottom: -5%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(233, 172, 122, 0.95), rgba(233, 172, 122, 0));
+  box-shadow: 0 0 7px 2px rgba(233, 172, 122, 0.5);
+  animation: emberRise ease-in-out infinite;
+}
+@keyframes emberRise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translate(10px, -50vh); }
+  90% { opacity: 0.4; }
+  100% { transform: translate(-6px, -100vh); opacity: 0; }
+}
+
 
 /* ---------- page moods (blend with day/night, don't override it) ---------- */
 
@@ -426,4 +459,26 @@ html[data-theme="night"][data-mood="dusk"] {
   --gold: #e8a95c;
   --paper: #241a12;
   --paper-edge: #372820;
+}
+
+/* About — twilight: dusty rose and lavender, quiet and reflective */
+html[data-theme="day"][data-mood="twilight"] {
+  --sky-top: #e8d3d0;
+  --sky-bottom: #ece0e8;
+  --ink: #3a2e33;
+  --ink-soft: #705c63;
+  --moss: #a97d8a;
+  --gold: #d99a6c;
+  --paper: #f7ece6;
+  --paper-edge: #e8d6cd;
+}
+html[data-theme="night"][data-mood="twilight"] {
+  --sky-top: #1c1220;
+  --sky-bottom: #120b16;
+  --ink: #f0e4e8;
+  --ink-soft: #c2a8b2;
+  --moss: #c98fa0;
+  --gold: #e8ac7a;
+  --paper: #201620;
+  --paper-edge: #33222f;
 }

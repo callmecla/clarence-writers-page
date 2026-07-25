@@ -43,17 +43,33 @@ photographs — built with Next.js, TypeScript, and Sanity as a free headless CM
 ## What's scaffolded so far
 
 - Homepage with hero + Novels section, pulling live data from Sanity
+- Poetry, Diary, and Photos pages, also pulling from Sanity
+- About page with a working contact form (see "Contact form setup" below)
 - Day/night theme toggle (top right), remembers your last choice
-- `Novel` content type: title, genre tag, logline, cover image, Wattpad link
-- `Poem`, `DiaryEntry`, and `Photo` content types are defined in the schema
-  but don't have pages built yet — the querying functions for them already
-  exist in `lib/sanity/queries.ts`, ready to wire up
+- Each page has its own color mood and background animation (Novels =
+  morning/birds, Poetry = midnight/stars, Diary = summer/petals, Photos =
+  dusk/dust, About = twilight/embers) — see `lib/moods.ts`
+- Soft fade-in transition between pages (`app/template.tsx`)
 
-## Next steps
+## Contact form setup
 
-- Build out `/poetry`, `/diary`, and `/photos` pages the same way `app/page.tsx`
-  pulls novels (see `getPoems`, `getDiaryEntries`, `getPhotos` in
-  `lib/sanity/queries.ts`)
-- Add the ambient animations (drifting clouds, floating motes) from the design
-  mockup as a client component
-- Deploy: Vercel's free tier is the easiest path for a Next.js site like this
+The "say hello" form on the About page sends you an email via Resend
+whenever someone submits it.
+
+1. Create a free account at https://resend.com
+2. Go to https://resend.com/api-keys and create an API key
+3. Add to your `.env.local`:
+   ```
+   RESEND_API_KEY=your-key-here
+   CONTACT_TO_EMAIL=the-email-you-signed-up-to-resend-with
+   ```
+4. Restart `npm run dev`
+
+No custom domain needed — the form sends from Resend's shared test address,
+which works as long as it's sending *to* the email you signed up with. If
+you later want the "from" address to look like it's coming from your own
+domain, that's when you'd verify a domain in Resend's dashboard.
+
+**Don't forget:** when you deploy to Vercel, add `RESEND_API_KEY` and
+`CONTACT_TO_EMAIL` in the Vercel project's Environment Variables too — env
+vars in `.env.local` only apply locally, not on the live site.
