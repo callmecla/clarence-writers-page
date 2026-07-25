@@ -8,7 +8,7 @@ export default async function DiaryPage() {
 
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 130px" }}>
+      <section style={{ padding: "0 6vw 130px", maxWidth: "760px", margin: "0 auto" }}>
         <div
           style={{
             marginBottom: "56px",

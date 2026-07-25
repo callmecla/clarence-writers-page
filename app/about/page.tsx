@@ -3,7 +3,7 @@ import ContactForm from "@/components/ContactForm";
 export default function AboutPage() {
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 100px", maxWidth: "720px" }}>
+      <section style={{ padding: "0 6vw 100px", maxWidth: "760px", margin: "0 auto" }}>
         <div style={{ marginBottom: "50px" }}>
           <p
             style={{
@@ -108,7 +108,8 @@ export default function AboutPage() {
       <section
         style={{
           padding: "0 6vw 130px",
-          maxWidth: "720px",
+          maxWidth: "760px",
+          margin: "0 auto",
           borderTop: "1px solid var(--line)",
           paddingTop: "60px",
         }}

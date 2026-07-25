@@ -417,26 +417,26 @@ html[data-theme="night"][data-mood="midnight"] {
   --paper-edge: #251f34;
 }
 
-/* Diary — summer: sun-drenched meadow gold and green */
+/* Diary — summer: sun-drenched wheat and sunflower gold, not green */
 html[data-theme="day"][data-mood="summer"] {
-  --sky-top: #cdeec2;
-  --sky-bottom: #fbf3d0;
-  --ink: #33401f;
-  --ink-soft: #64754a;
-  --moss: #5c8f4a;
-  --gold: #dda838;
-  --paper: #fbf4de;
-  --paper-edge: #ecdfb0;
+  --sky-top: #f5e6a8;
+  --sky-bottom: #fff6dc;
+  --ink: #4a3a12;
+  --ink-soft: #7a6530;
+  --moss: #c99a2e;
+  --gold: #e8b93f;
+  --paper: #fdf6e0;
+  --paper-edge: #eddc9c;
 }
 html[data-theme="night"][data-mood="summer"] {
-  --sky-top: #1b2410;
-  --sky-bottom: #120f08;
-  --ink: #eef2df;
-  --ink-soft: #b8c49f;
-  --moss: #7fae5c;
-  --gold: #f0c15a;
-  --paper: #1e2414;
-  --paper-edge: #313a1e;
+  --sky-top: #2b2308;
+  --sky-bottom: #1a1504;
+  --ink: #f5edc9;
+  --ink-soft: #cdbb7a;
+  --moss: #d9ad3f;
+  --gold: #f0c65a;
+  --paper: #241d08;
+  --paper-edge: #3a2f10;
 }
 
 /* Photos — dusk: warm golden-hour amber and copper, camera-vignette feel */
