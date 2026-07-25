@@ -2,7 +2,7 @@
   --sky-top: #dbe8d9;
   --sky-bottom: #eef1e3;
   --ink: #2c3a2b;
-  --ink-soft: #5b6b54;
+  --ink-soft: #54634d;
   --moss: #5f8a5f;
   --gold: #c99a53;
   --paper: #f3f0e1;
@@ -378,8 +378,8 @@ html[data-theme="day"][data-mood="morning"] {
   --sky-top: #f3e6d9;
   --sky-bottom: #eef2e0;
   --ink: #33402f;
-  --ink-soft: #6b7660;
-  --moss: #7f9a6e;
+  --ink-soft: #5d6653;
+  --moss: #607453;
   --gold: #e3a76f;
   --paper: #faf5e9;
   --paper-edge: #ece1c9;
@@ -401,7 +401,7 @@ html[data-theme="day"][data-mood="midnight"] {
   --sky-bottom: #e8e3ef;
   --ink: #2c2a3d;
   --ink-soft: #5e5a75;
-  --moss: #8b7fae;
+  --moss: #6d6489;
   --gold: #b98fd1;
   --paper: #efeaf5;
   --paper-edge: #ded5ea;
@@ -422,8 +422,8 @@ html[data-theme="day"][data-mood="summer"] {
   --sky-top: #f5e6a8;
   --sky-bottom: #fff6dc;
   --ink: #4a3a12;
-  --ink-soft: #7a6530;
-  --moss: #c99a2e;
+  --ink-soft: #75612e;
+  --moss: #89691f;
   --gold: #e8b93f;
   --paper: #fdf6e0;
   --paper-edge: #eddc9c;
@@ -444,8 +444,8 @@ html[data-theme="day"][data-mood="dusk"] {
   --sky-top: #f0d9c0;
   --sky-bottom: #f7ece0;
   --ink: #3d2f22;
-  --ink-soft: #7a6a58;
-  --moss: #b98a5a;
+  --ink-soft: #6c5e4e;
+  --moss: #896642;
   --gold: #d98c3f;
   --paper: #faf1e4;
   --paper-edge: #ecdcc3;
@@ -466,8 +466,8 @@ html[data-theme="day"][data-mood="twilight"] {
   --sky-top: #e8d3d0;
   --sky-bottom: #ece0e8;
   --ink: #3a2e33;
-  --ink-soft: #705c63;
-  --moss: #a97d8a;
+  --ink-soft: #6c585f;
+  --moss: #82606a;
   --gold: #d99a6c;
   --paper: #f7ece6;
   --paper-edge: #e8d6cd;

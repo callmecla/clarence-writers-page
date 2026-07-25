@@ -8,7 +8,7 @@ export default async function DiaryPage() {
 
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 130px", maxWidth: "760px", margin: "0 auto" }}>
+      <section style={{ padding: "0 6vw 130px", maxWidth: "1040px", margin: "0 auto" }}>
         <div
           style={{
             marginBottom: "56px",
@@ -29,7 +29,7 @@ export default async function DiaryPage() {
             No entries published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "70px", maxWidth: "620px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "70px", maxWidth: "700px" }}>
             {entries.map((entry) => (
               <article
                 key={entry._id}

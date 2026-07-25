@@ -3,7 +3,7 @@ import ContactForm from "@/components/ContactForm";
 export default function AboutPage() {
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 100px", maxWidth: "760px", margin: "0 auto" }}>
+      <section style={{ padding: "0 6vw 100px", maxWidth: "1040px", margin: "0 auto" }}>
         <div style={{ marginBottom: "50px" }}>
           <p
             style={{
@@ -45,7 +45,7 @@ export default function AboutPage() {
           </span>
         </div>
 
-        <div style={{ fontSize: "16.5px", lineHeight: 1.9, color: "var(--ink)", fontWeight: 300 }}>
+        <div style={{ fontSize: "16.5px", lineHeight: 1.9, color: "var(--ink)", fontWeight: 300, maxWidth: "700px" }}>
           <p style={{ marginBottom: "20px" }}>
             I write in the hours most people spend asleep — that quiet stretch where a page feels
             more honest than daylight allows. This site is where those hours end up: novels I&apos;m
@@ -108,7 +108,7 @@ export default function AboutPage() {
       <section
         style={{
           padding: "0 6vw 130px",
-          maxWidth: "760px",
+          maxWidth: "1040px",
           margin: "0 auto",
           borderTop: "1px solid var(--line)",
           paddingTop: "60px",

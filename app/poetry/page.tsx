@@ -7,7 +7,7 @@ export default async function PoetryPage() {
 
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 130px", maxWidth: "760px", margin: "0 auto" }}>
+      <section style={{ padding: "0 6vw 130px", maxWidth: "1040px", margin: "0 auto" }}>
         <div
           style={{
             marginBottom: "56px",
@@ -28,7 +28,7 @@ export default async function PoetryPage() {
             No poems published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "64px", maxWidth: "620px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "64px", maxWidth: "700px" }}>
             {poems.map((poem) => (
               <article key={poem._id}>
                 <h2 className="display" style={{ fontStyle: "italic", fontSize: "26px", marginBottom: "6px" }}>
