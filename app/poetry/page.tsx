@@ -1,4 +1,5 @@
 import { getPoems } from "@/lib/sanity/queries";
+import PoetryConstellation from "@/components/PoetryConstellation";
 
 export const revalidate = 3600;
 
@@ -7,10 +8,10 @@ export default async function PoetryPage() {
 
   return (
     <main style={{ paddingTop: "160px" }}>
-      <section style={{ padding: "0 6vw 130px", maxWidth: "1040px", margin: "0 auto" }}>
+      <section style={{ padding: "0 6vw 60px", maxWidth: "1040px", margin: "0 auto" }}>
         <div
           style={{
-            marginBottom: "56px",
+            marginBottom: "20px",
             borderBottom: "1px solid var(--line)",
             paddingBottom: "22px",
           }}
@@ -19,44 +20,16 @@ export default async function PoetryPage() {
             Poetry
           </h1>
           <p style={{ fontSize: "13px", color: "var(--ink-soft)", marginTop: "10px" }}>
-            short lines, held gently
+            short lines, held gently — click a star to read one
           </p>
         </div>
 
         {poems.length === 0 ? (
-          <p style={{ color: "var(--ink-soft)" }}>
+          <p style={{ color: "var(--ink-soft)", padding: "40px 0 100px" }}>
             No poems published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "64px", maxWidth: "700px" }}>
-            {poems.map((poem) => (
-              <article key={poem._id}>
-                <h2 className="display" style={{ fontStyle: "italic", fontSize: "26px", marginBottom: "6px" }}>
-                  {poem.title}
-                </h2>
-                {poem.publishedAt && (
-                  <p style={{ fontSize: "12px", color: "var(--moss)", marginBottom: "18px" }}>
-                    {new Date(poem.publishedAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                )}
-                <p
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: 1.9,
-                    color: "var(--ink)",
-                    whiteSpace: "pre-wrap",
-                    fontWeight: 300,
-                  }}
-                >
-                  {poem.body}
-                </p>
-              </article>
-            ))}
-          </div>
+          <PoetryConstellation poems={poems} />
         )}
       </section>
     </main>

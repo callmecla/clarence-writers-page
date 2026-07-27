@@ -18,6 +18,46 @@ export default function AmbientBackground() {
   const bokehRef = useRef<HTMLDivElement>(null);
   const embersRef = useRef<HTMLDivElement>(null);
 
+  // ---- Global: track cursor position for subtle parallax on background layers ----
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    let raf = 0;
+    function handleMove(e: MouseEvent) {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const mx = (e.clientX / window.innerWidth - 0.5) * 2; // -1..1
+        const my = (e.clientY / window.innerHeight - 0.5) * 2;
+        document.documentElement.style.setProperty("--mx", mx.toFixed(3));
+        document.documentElement.style.setProperty("--my", my.toFixed(3));
+        raf = 0;
+      });
+    }
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
+  // ---- Cursor-reactive parallax: subtle drift toward the mouse, on every page ----
+  useEffect(() => {
+    let frame = 0;
+    function handleMouseMove(e: MouseEvent) {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        const mx = (e.clientX / window.innerWidth) * 2 - 1; // -1..1
+        const my = (e.clientY / window.innerHeight) * 2 - 1;
+        document.documentElement.style.setProperty("--mx", mx.toFixed(3));
+        document.documentElement.style.setProperty("--my", my.toFixed(3));
+        frame = 0;
+      });
+    }
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   // ---- Morning (Novels): clouds + gliding birds ----
   useEffect(() => {
     if (mood !== "morning") return;

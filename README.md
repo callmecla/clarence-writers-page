@@ -42,14 +42,34 @@ photographs — built with Next.js, TypeScript, and Sanity as a free headless CM
 
 ## What's scaffolded so far
 
-- Homepage with hero + Novels section, pulling live data from Sanity
-- Poetry, Diary, and Photos pages, also pulling from Sanity
-- About page with a working contact form (see "Contact form setup" below)
-- Day/night theme toggle (top right), remembers your last choice
-- Each page has its own color mood and background animation (Novels =
-  morning/birds, Poetry = midnight/stars, Diary = summer/petals, Photos =
-  dusk/dust, About = twilight/embers) — see `lib/moods.ts`
-- Soft fade-in transition between pages (`app/template.tsx`)
+- Homepage with hero + Novels section (page-curl hover on cards)
+- Poetry page — poems shown as a clickable constellation of stars
+- Diary page — entries + a "random memory" button that scrolls & highlights
+- Photos page — photos tilt in 3D toward your cursor
+- About page — bio, favorite line, a "leave a light" guestbook, and a working
+  contact form
+- Day/night theme toggle, remembers your last choice
+- Each page has its own color mood + background animation (see `lib/moods.ts`)
+- Ambient particles gently drift toward your cursor on every page
+- Soft fade-in transition between pages
+
+## Guestbook setup (leave a light)
+
+The guestbook needs a Sanity **write token** (separate from your normal
+read-only setup) since visitors are creating new documents, not just reading.
+
+1. Go to https://www.sanity.io/manage → your project → API → Tokens
+2. Create a new token with **Editor** permissions
+3. Add to `.env.local`:
+   ```
+   SANITY_API_TOKEN=your-token-here
+   ```
+4. Restart `npm run dev`
+
+**Important:** this token can create content, so never commit it or expose
+it in client-side code — it's only ever used inside
+`app/api/guestbook/route.ts`, which runs on the server. Add it to Vercel's
+Environment Variables too when you deploy, the same as the other secrets.
 
 ## Contact form setup
 

@@ -60,10 +60,24 @@ export async function getDiaryEntries(): Promise<DiaryEntry[]> {
   );
 }
 
+export interface Light {
+  _id: string;
+  note?: string;
+  createdAt: string;
+}
+
 export async function getPhotos(): Promise<Photo[]> {
   return client.fetch(
     `*[_type == "photo"] | order(takenAt desc) {
       _id, image, caption, takenAt
+    }`
+  );
+}
+
+export async function getLights(): Promise<Light[]> {
+  return client.fetch(
+    `*[_type == "light"] | order(createdAt desc) [0...60] {
+      _id, note, createdAt
     }`
   );
 }

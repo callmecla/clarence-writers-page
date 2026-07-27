@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { getPhotos } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/client";
+import TiltPhoto from "@/components/TiltPhoto";
 
 export const revalidate = 3600;
 
@@ -38,36 +38,12 @@ export default async function PhotosPage() {
             }}
           >
             {photos.map((photo) => (
-              <figure key={photo._id} style={{ margin: 0 }}>
-                <div
-                  style={{
-                    position: "relative",
-                    aspectRatio: "4 / 5",
-                    borderRadius: "6px",
-                    overflow: "hidden",
-                    background: "var(--paper)",
-                  }}
-                >
-                  <Image
-                    src={urlForImage(photo.image).width(700).height(875).url()}
-                    alt={photo.caption || "Photograph"}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                {photo.caption && (
-                  <figcaption
-                    style={{
-                      marginTop: "10px",
-                      fontSize: "13.5px",
-                      color: "var(--ink-soft)",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {photo.caption}
-                  </figcaption>
-                )}
-              </figure>
+              <TiltPhoto
+                key={photo._id}
+                src={urlForImage(photo.image).width(700).height(875).url()}
+                alt={photo.caption || "Photograph"}
+                caption={photo.caption}
+              />
             ))}
           </div>
         )}

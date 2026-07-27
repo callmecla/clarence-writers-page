@@ -5,6 +5,7 @@ import Image from "next/image";
 export default function NovelCard({ novel }: { novel: Novel }) {
   return (
     <div
+      className="novel-card"
       style={{
         background: "var(--paper)",
         border: "1px solid var(--paper-edge)",
@@ -16,6 +17,7 @@ export default function NovelCard({ novel }: { novel: Novel }) {
       }}
     >
       <div
+        className="novel-cover"
         style={{
           aspectRatio: "3 / 4.4",
           borderRadius: "3px",
@@ -32,6 +34,7 @@ export default function NovelCard({ novel }: { novel: Novel }) {
             style={{ objectFit: "cover" }}
           />
         )}
+        <span className="page-curl" />
       </div>
 
       {novel.genre && (

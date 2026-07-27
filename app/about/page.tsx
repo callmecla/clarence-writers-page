@@ -1,6 +1,12 @@
 import ContactForm from "@/components/ContactForm";
+import Guestbook from "@/components/Guestbook";
+import { getLights } from "@/lib/sanity/queries";
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const lights = await getLights();
+
   return (
     <main style={{ paddingTop: "160px" }}>
       <section style={{ padding: "0 6vw 100px", maxWidth: "1040px", margin: "0 auto" }}>
@@ -103,6 +109,24 @@ export default function AboutPage() {
             — a line I keep coming back to, from Blue Hour Radio
           </p>
         </div>
+      </section>
+
+      <section
+        style={{
+          padding: "0 6vw 100px",
+          maxWidth: "1040px",
+          margin: "0 auto",
+          borderTop: "1px solid var(--line)",
+          paddingTop: "60px",
+        }}
+      >
+        <h2 className="display" style={{ fontSize: "clamp(24px, 3.2vw, 32px)", marginBottom: "10px" }}>
+          leave a light
+        </h2>
+        <p style={{ color: "var(--ink-soft)", fontSize: "14.5px", marginBottom: "26px" }}>
+          A small, quiet way to say you were here — with a note if you'd like, or just a glow.
+        </p>
+        <Guestbook initialLights={lights} />
       </section>
 
       <section
