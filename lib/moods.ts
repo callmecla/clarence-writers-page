@@ -3,7 +3,7 @@
 // (handled in AmbientBackground). Pages not listed here just use the
 // base day/night look with no special mood.
 export const MOOD_BY_PATH: Record<string, string> = {
-  "/": "morning",
+  "/novels": "morning",
   "/poetry": "midnight",
   "/diary": "summer",
   "/photos": "dusk",

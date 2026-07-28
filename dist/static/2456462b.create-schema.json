@@ -1,0 +1,437 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "Shown as the small pill above the title, e.g. 'Literary Fantasy'",
+        "name": "genre",
+        "type": "string",
+        "title": "Genre tag"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 280
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "One or two sentences, not the full synopsis",
+        "name": "logline",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "cover",
+        "type": "image",
+        "title": "Cover image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "wattpadUrl",
+        "type": "url",
+        "title": "Wattpad link"
+      },
+      {
+        "description": "Lower numbers show first",
+        "name": "order",
+        "type": "number",
+        "title": "Display order"
+      },
+      {
+        "initialValue": true,
+        "description": "Turn off to hide from the live site while you're still drafting",
+        "name": "published",
+        "type": "boolean"
+      }
+    ],
+    "name": "novel",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 12,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Line breaks are preserved as written",
+        "name": "body",
+        "type": "text",
+        "title": "Poem text"
+      },
+      {
+        "name": "publishedAt",
+        "type": "date",
+        "title": "Date written"
+      },
+      {
+        "initialValue": false,
+        "description": "Draft poems can be styled differently on the site (e.g. faded) if you want",
+        "name": "isDraft",
+        "type": "boolean",
+        "title": "Still a draft"
+      }
+    ],
+    "name": "poem",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Optional — leave blank to just show the date",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "body",
+        "type": "array",
+        "title": "Entry"
+      },
+      {
+        "description": "Optional small label, e.g. 'quiet', 'restless', 'grateful'",
+        "name": "mood",
+        "type": "string",
+        "title": "Mood tag"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Date"
+      }
+    ],
+    "name": "diaryEntry",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "description": "What it inspired, or where it was taken",
+        "name": "caption",
+        "type": "string"
+      },
+      {
+        "description": "Optional — link this photo to the piece it inspired",
+        "to": [
+          {
+            "type": "poem"
+          },
+          {
+            "type": "diaryEntry"
+          }
+        ],
+        "name": "relatedWriting",
+        "type": "reference",
+        "title": "Related poem or diary entry"
+      },
+      {
+        "name": "takenAt",
+        "type": "date",
+        "title": "Date taken"
+      }
+    ],
+    "name": "photo",
+    "type": "document",
+    "title": "Photograph"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 140
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "A short optional note left by a visitor",
+        "name": "note",
+        "type": "string"
+      },
+      {
+        "name": "createdAt",
+        "type": "datetime",
+        "title": "Left at"
+      }
+    ],
+    "name": "light",
+    "type": "document",
+    "title": "Guestbook Light"
+  }
+]

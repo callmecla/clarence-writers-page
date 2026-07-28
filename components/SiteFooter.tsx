@@ -1,3 +1,5 @@
+import SocialLinks from "./SocialLinks";
+
 export default function SiteFooter() {
   return (
     <footer
@@ -25,6 +27,10 @@ export default function SiteFooter() {
         />
         <circle cx="30" cy="10" r="2" fill="var(--gold)" />
       </svg>
+
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: "22px" }}>
+        <SocialLinks />
+      </div>
 
       <p>
         hello, rencey! — a study kept by{" "}

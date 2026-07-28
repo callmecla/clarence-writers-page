@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "createdAt": "2026-07-28T04:19:34.867Z",
+  "workspaces": [
+    {
+      "name": "hello-rencey-studio",
+      "title": "hello, rencey!",
+      "basePath": "/",
+      "projectId": "qdvrnvkg",
+      "dataset": "production",
+      "icon": "<style data-styled=\"true\" data-styled-version=\"6.4.4\">.gWcwjz{font-family:Inter,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Liberation Sans\",Helvetica,Arial,system-ui,sans-serif;font-weight:500;font-size:13px;transform:translateY(1px);}/*!sc*/\ndata-styled.g108[id=\"sc-ipUpyX\"]{content:\"gWcwjz,\"}/*!sc*/\n</style><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><rect width=\"32\" height=\"32\" rx=\"2\" fill=\"#62efef\"></rect><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" alignment-baseline=\"middle\" fill=\"hsla(180, 82%, 26%, 1)\" class=\"sc-ipUpyX gWcwjz\">HR</text></svg>",
+      "mediaLibrary": {
+        "enabled": false
+      },
+      "schema": "2456462b.create-schema.json",
+      "tools": "508c81d2.create-tools.json"
+    }
+  ]
+}

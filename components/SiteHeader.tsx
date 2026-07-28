@@ -40,7 +40,7 @@ export default function SiteHeader() {
           }}
           className="site-nav-links"
         >
-          <li><NavLink href="/#novels">Novels</NavLink></li>
+          <li><NavLink href="/novels">Novels</NavLink></li>
           <li><NavLink href="/poetry">Poetry</NavLink></li>
           <li><NavLink href="/diary">Diary</NavLink></li>
           <li><NavLink href="/photos">Photographs</NavLink></li>

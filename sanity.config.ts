@@ -6,9 +6,10 @@ export default defineConfig({
   name: "hello-rencey-studio",
   title: "hello, rencey!",
 
-  // Find these in sanity.io/manage after you create a free project
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "qdvrnvkg",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  // The Studio runs on Vite (not Next.js), so it needs env vars prefixed
+  // with SANITY_STUDIO_ rather than NEXT_PUBLIC_ — see .env.local.example
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "your-project-id",
+  dataset: process.env.SANITY_STUDIO_DATASET || "production",
 
   plugins: [structureTool()],
 

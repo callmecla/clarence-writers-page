@@ -38,26 +38,6 @@ export default function AmbientBackground() {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  // ---- Cursor-reactive parallax: subtle drift toward the mouse, on every page ----
-  useEffect(() => {
-    let frame = 0;
-    function handleMouseMove(e: MouseEvent) {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        const mx = (e.clientX / window.innerWidth) * 2 - 1; // -1..1
-        const my = (e.clientY / window.innerHeight) * 2 - 1;
-        document.documentElement.style.setProperty("--mx", mx.toFixed(3));
-        document.documentElement.style.setProperty("--my", my.toFixed(3));
-        frame = 0;
-      });
-    }
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
   // ---- Morning (Novels): clouds + gliding birds ----
   useEffect(() => {
     if (mood !== "morning") return;

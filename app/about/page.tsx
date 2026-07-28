@@ -1,5 +1,6 @@
 import ContactForm from "@/components/ContactForm";
 import Guestbook from "@/components/Guestbook";
+import SocialLinks from "@/components/SocialLinks";
 import { getLights } from "@/lib/sanity/queries";
 
 export const revalidate = 3600;
@@ -28,6 +29,9 @@ export default async function AboutPage() {
           >
             hello, I&apos;m <em style={{ color: "var(--gold)" }}>Rencey</em>.
           </h1>
+          <div style={{ marginTop: "22px" }}>
+            <SocialLinks />
+          </div>
         </div>
 
         {/* portrait placeholder — swap for a real photo or illustration */}

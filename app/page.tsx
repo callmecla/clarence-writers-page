@@ -1,19 +1,12 @@
 import Link from "next/link";
-import { getNovels } from "@/lib/sanity/queries";
-import NovelCard from "@/components/NovelCard";
+import SocialLinks from "@/components/SocialLinks";
 
-// Revalidate every hour so new content from Sanity shows up
-// without needing a full redeploy
-export const revalidate = 3600;
-
-export default async function Home() {
-  const novels = await getNovels();
-
+export default function Home() {
   return (
     <main>
       <header
         style={{
-          minHeight: "92vh",
+          minHeight: "88vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -42,55 +35,27 @@ export default async function Home() {
           Novels, poems, and small true things — written slowly, and kept here like pressed
           flowers between pages.
         </p>
+        <div style={{ marginTop: "34px" }}>
+          <SocialLinks />
+        </div>
       </header>
 
-      <section id="novels" style={{ padding: "130px 6vw" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "56px",
-            borderBottom: "1px solid var(--line)",
-            paddingBottom: "22px",
-          }}
-        >
-          <h2 style={{ fontSize: "clamp(30px, 4vw, 44px)", fontWeight: 400 }}>Novels</h2>
-          <span style={{ fontSize: "13px", color: "var(--ink-soft)" }}>full chapters live on Wattpad</span>
-        </div>
-
-        {novels.length === 0 ? (
-          <p style={{ color: "var(--ink-soft)" }}>
-            No novels published yet — add one in the Sanity Studio and it&apos;ll show up here.
-          </p>
-        ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "44px",
-            }}
-          >
-            {novels.map((novel) => (
-              <NovelCard key={novel._id} novel={novel} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section style={{ padding: "0 6vw 130px" }}>
+      <section style={{ padding: "0 6vw 140px", maxWidth: "1040px", margin: "0 auto" }}>
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "2px",
             background: "var(--line)",
             borderRadius: "6px",
             overflow: "hidden",
           }}
         >
-          <PreviewPanel href="/poetry" num="Poetry" title="short lines, held gently" text="A growing collection of poems — some finished, some just a good first line waiting for the rest." />
-          <PreviewPanel href="/diary" num="Diary" title="not everything, but something true" text="Reflections and fragments, posted when they're ready to be read rather than when they're written." />
-          <PreviewPanel href="/photos" num="Photographs" title="the light that started it" text="Images that inspired a page, a line, or a whole quiet afternoon." />
+          <PreviewPanel href="/novels" num="Novels" title="stories, chapter by chapter" text="Full-length novels, with chapters continued on Wattpad." />
+          <PreviewPanel href="/poetry" num="Poetry" title="short lines, held gently" text="A growing collection of poems — click a star to read one." />
+          <PreviewPanel href="/diary" num="Diary" title="not everything, but something true" text="Reflections and fragments, posted when they're ready." />
+          <PreviewPanel href="/photos" num="Photographs" title="the light that started it" text="Images that inspired a page, a line, or a quiet afternoon." />
+          <PreviewPanel href="/about" num="About" title="a little about the one writing" text="Who's behind these pages, and a way to say hello." />
         </div>
       </section>
     </main>
@@ -113,8 +78,8 @@ function PreviewPanel({
       href={href}
       style={{
         background: "var(--paper)",
-        padding: "44px 34px",
-        minHeight: "220px",
+        padding: "40px 30px",
+        minHeight: "210px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -124,7 +89,7 @@ function PreviewPanel({
     >
       <span style={{ fontSize: "12px", color: "var(--moss)", letterSpacing: "0.1em" }}>{num}</span>
       <div>
-        <h3 className="display" style={{ fontStyle: "italic", fontSize: "24px", marginTop: "18px" }}>
+        <h3 className="display" style={{ fontStyle: "italic", fontSize: "22px", marginTop: "16px" }}>
           {title}
         </h3>
         <p style={{ fontSize: "13.5px", color: "var(--ink-soft)", marginTop: "10px", lineHeight: 1.6 }}>
