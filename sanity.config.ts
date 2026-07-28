@@ -7,7 +7,7 @@ export default defineConfig({
   title: "hello, rencey!",
 
   // Find these in sanity.io/manage after you create a free project
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "your-project-id",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "qdvrnvkg",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
 
   plugins: [structureTool()],
