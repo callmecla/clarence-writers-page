@@ -4,6 +4,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AmbientBackground from "@/components/AmbientBackground";
 import PageMood from "@/components/PageMood";
+import CursorLight from "@/components/CursorLight";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body>
         <PageMood />
         <AmbientBackground />
+        <CursorLight />
         <SiteHeader />
         {children}
         <SiteFooter />

@@ -269,6 +269,28 @@ body {
   border-color: var(--gold);
 }
 
+/* ---------- cursor light ---------- */
+.cursor-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+  filter: blur(30px);
+  mix-blend-mode: soft-light;
+}
+.cursor-light.is-active { opacity: 0.6; }
+html[data-theme="night"] .cursor-light {
+  mix-blend-mode: screen;
+}
+html[data-theme="night"] .cursor-light.is-active { opacity: 0.8; }
+
 /* ---------- novel constellation ---------- */
 .novel-constellation-wrap {
   position: relative;
