@@ -246,24 +246,157 @@ body {
 /* ---------- social links ---------- */
 .social-links { display: flex; gap: 12px; }
 .social-pill {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--paper);
   border: 1px solid var(--paper-edge);
-  color: var(--ink);
-  font-family: var(--font-display), serif;
-  font-style: italic;
-  font-size: 13px;
+  color: var(--ink-soft);
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease, color 0.3s ease;
+}
+.social-pill svg {
+  width: 17px;
+  height: 17px;
 }
 .social-pill:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px -12px rgba(20,15,10,0.4);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ---------- novel constellation ---------- */
+.novel-constellation-wrap {
+  position: relative;
+  min-height: 60vh;
+}
+.constellation-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.constellation-lines polyline {
+  stroke: var(--moss);
+  stroke-width: 0.15;
+  stroke-dasharray: 0.6 0.8;
+  opacity: 0.5;
+}
+.novel-orb {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--paper-edge), 0 14px 30px -14px rgba(20,15,10,0.4);
+  cursor: pointer;
+  padding: 0;
+  background: linear-gradient(160deg, var(--moss), var(--gold));
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+.novel-orb:hover, .novel-orb:focus-visible {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 0 0 1px var(--gold), 0 20px 40px -16px rgba(20,15,10,0.5);
+}
+.novel-orb-fallback { display: block; width: 100%; height: 100%; }
+.novel-orb-label {
+  position: absolute;
+  top: 108%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 6px 14px;
+  pointer-events: none;
+  text-align: center;
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink);
+}
+.novel-orb-label em {
+  display: block;
+  font-family: var(--font-body), sans-serif;
+  font-style: normal;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-top: 2px;
+}
+
+.novel-modal { max-width: 640px; }
+.novel-modal-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.genre-tag-inline {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--moss);
+  border: 1px solid var(--moss);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.novel-modal-section {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.novel-modal-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 8px;
+}
+.novel-modal-body {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--ink);
+  font-style: italic;
+}
+.mood-board-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.mood-board-palette { display: flex; gap: 10px; margin-bottom: 12px; }
+.mood-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--paper-edge);
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.3);
+}
+.mood-board-song { font-size: 14px; color: var(--ink-soft); font-style: italic; }
+.mood-board-song a { color: var(--gold); text-decoration: none; }
+.wattpad-cta {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
 }
 
 /* ---------- novel card: hover lift + page curl ---------- */
