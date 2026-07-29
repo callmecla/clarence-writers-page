@@ -9,6 +9,11 @@ export interface Novel {
   cover?: any;
   wattpadUrl: string;
   order?: number;
+  originStory?: string;
+  moodColors?: string[];
+  moodSong?: string;
+  moodSongUrl?: string;
+  moodImage?: any;
 }
 
 export interface Poem {
@@ -39,7 +44,8 @@ export interface Photo {
 export async function getNovels(): Promise<Novel[]> {
   return client.fetch(
     `*[_type == "novel" && published == true] | order(order asc) {
-      _id, title, slug, genre, logline, cover, wattpadUrl, order
+      _id, title, slug, genre, logline, cover, wattpadUrl, order,
+      originStory, moodColors, moodSong, moodSongUrl, moodImage
     }`
   );
 }
