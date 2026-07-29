@@ -42,7 +42,10 @@ photographs — built with Next.js, TypeScript, and Sanity as a free headless CM
 
 ## What's scaffolded so far
 
-- Homepage with hero + Novels section (page-curl hover on cards)
+- Homepage (`/`) — hero, social links, and a five-tile overview of every section
+- Novels page (`/novels`) — shown as a connected constellation of orbs;
+  click one to see its cover, logline, "where this idea came from," and a
+  mood board (colors, a song, an image) — all editable per-novel in Sanity
 - Poetry page — poems shown as a clickable constellation of stars
 - Diary page — entries + a "random memory" button that scrolls & highlights
 - Photos page — photos tilt in 3D toward your cursor
