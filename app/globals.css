@@ -269,27 +269,71 @@ body {
   border-color: var(--gold);
 }
 
+/* ---------- HOME (aurora): flowing color bands + soft stars/fireflies ---------- */
+.aurora-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.aurora-band {
+  position: absolute;
+  top: -15%;
+  left: -25%;
+  width: 150%;
+  height: 55%;
+  filter: blur(50px);
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  animation: auroraFlow ease-in-out infinite;
+}
+html[data-theme="day"] .aurora-band { opacity: 0.22; mix-blend-mode: multiply; }
+.aurora-band.b1 {
+  background: linear-gradient(100deg, transparent, var(--moss) 25%, transparent 55%);
+  animation-duration: 20s;
+}
+.aurora-band.b2 {
+  top: -5%;
+  background: linear-gradient(100deg, transparent, var(--gold) 30%, transparent 60%);
+  animation-duration: 26s;
+  animation-delay: -8s;
+}
+.aurora-band.b3 {
+  top: -20%;
+  background: linear-gradient(100deg, transparent, var(--ink-soft) 20%, transparent 50%);
+  animation-duration: 32s;
+  animation-delay: -15s;
+  opacity: 0.18;
+}
+@keyframes auroraFlow {
+  0%, 100% { transform: translateX(0) skewY(-6deg); }
+  50% { transform: translateX(10%) skewY(-2deg); }
+}
+
 /* ---------- cursor light ---------- */
 .cursor-light {
   position: fixed;
   top: 0;
   left: 0;
-  width: 260px;
-  height: 260px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 40;
   opacity: 0;
   transition: opacity 0.4s ease;
-  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
-  filter: blur(30px);
-  mix-blend-mode: soft-light;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--gold) 90%, white) 0%, transparent 34%),
+    radial-gradient(circle, color-mix(in srgb, var(--gold) 55%, transparent) 0%, transparent 70%);
+  filter: blur(3px);
+  animation: sparkleFlicker 2.6s ease-in-out infinite;
 }
-.cursor-light.is-active { opacity: 0.6; }
-html[data-theme="night"] .cursor-light {
-  mix-blend-mode: screen;
+.cursor-light.is-active { opacity: 1; }
+@keyframes sparkleFlicker {
+  0%, 100% { filter: blur(3px) brightness(1); }
+  50% { filter: blur(4px) brightness(0.82); }
 }
-html[data-theme="night"] .cursor-light.is-active { opacity: 0.8; }
 
 /* ---------- novel constellation ---------- */
 .novel-constellation-wrap {
@@ -852,6 +896,29 @@ html[data-theme="night"][data-mood="summer"] {
   --gold: #f0c65a;
   --paper: #241d08;
   --paper-edge: #3a2f10;
+}
+
+/* Home — aurora: a richer, more varied palette than any single section,
+   since this page introduces the whole site */
+html[data-theme="day"][data-mood="aurora"] {
+  --sky-top: #d9d3ec;
+  --sky-bottom: #dcecdf;
+  --ink: #332f45;
+  --ink-soft: #5c5670;
+  --moss: #4d755a;
+  --gold: #d9a35c;
+  --paper: #f3f0f7;
+  --paper-edge: #e2dcee;
+}
+html[data-theme="night"][data-mood="aurora"] {
+  --sky-top: #131022;
+  --sky-bottom: #0c1616;
+  --ink: #ece8f5;
+  --ink-soft: #b9b2ce;
+  --moss: #7fc494;
+  --gold: #e6bc7a;
+  --paper: #181428;
+  --paper-edge: #292440;
 }
 
 /* Photos — dusk: warm golden-hour amber and copper, camera-vignette feel */

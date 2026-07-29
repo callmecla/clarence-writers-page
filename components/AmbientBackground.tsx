@@ -6,7 +6,7 @@ import { moodForPath } from "@/lib/moods";
 
 export default function AmbientBackground() {
   const pathname = usePathname();
-  const mood = moodForPath(pathname); // "morning" | "midnight" | "summer" | "dusk" | ""
+  const mood = moodForPath(pathname); // "aurora" | "morning" | "midnight" | "summer" | "dusk" | "twilight" | ""
 
   const cloudsRef = useRef<HTMLDivElement>(null);
   const birdsRef = useRef<HTMLDivElement>(null);
@@ -37,6 +37,37 @@ export default function AmbientBackground() {
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
+
+  // ---- Home (aurora): a light scattering of stars + fireflies, for depth ----
+  useEffect(() => {
+    if (mood !== "aurora") return;
+
+    if (starsRef.current) {
+      for (let i = 0; i < 30; i++) {
+        const s = document.createElement("div");
+        s.className = "mood-star";
+        const size = 1 + Math.random() * 1.6;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 55 + "vh";
+        s.style.animationDuration = 2.5 + Math.random() * 3 + "s";
+        s.style.animationDelay = -(Math.random() * 4) + "s";
+        starsRef.current!.appendChild(s);
+      }
+    }
+
+    if (firefliesRef.current) {
+      for (let i = 0; i < 10; i++) {
+        const f = document.createElement("div");
+        f.className = "firefly";
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.animationDuration = 16 + Math.random() * 14 + "s";
+        f.style.animationDelay = -(Math.random() * 20) + "s";
+        firefliesRef.current!.appendChild(f);
+      }
+    }
+  }, [mood]);
 
   // ---- Morning (Novels): clouds + gliding birds ----
   useEffect(() => {
@@ -212,6 +243,19 @@ export default function AmbientBackground() {
 
   return (
     <>
+      {/* ---- Home: flowing aurora bands + a light scattering of stars/fireflies ---- */}
+      {mood === "aurora" && (
+        <>
+          <div className="aurora-layer">
+            <div className="aurora-band b1" />
+            <div className="aurora-band b2" />
+            <div className="aurora-band b3" />
+          </div>
+          <div className="star-layer" ref={starsRef} />
+          <div className="fireflies" ref={firefliesRef} />
+        </>
+      )}
+
       {/* ---- Morning: sunrise, drifting clouds, birds, ground mist ---- */}
       {mood === "morning" && (
         <>
