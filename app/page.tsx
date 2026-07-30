@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section style={{ padding: "0 6vw 140px", maxWidth: "1040px", margin: "0 auto" }}>
+      <section style={{ padding: "0 6vw 60px", maxWidth: "1040px", margin: "0 auto", position: "relative", zIndex: 10 }}>
         <div
           style={{
             display: "grid",
@@ -55,8 +55,47 @@ export default function Home() {
           <PreviewPanel href="/poetry" num="Poetry" title="short lines, held gently" text="A growing collection of poems — click a star to read one." />
           <PreviewPanel href="/diary" num="Diary" title="not everything, but something true" text="Reflections and fragments, posted when they're ready." />
           <PreviewPanel href="/photos" num="Photographs" title="the light that started it" text="Images that inspired a page, a line, or a quiet afternoon." />
-          <PreviewPanel href="/about" num="About" title="a little about the one writing" text="Who's behind these pages, and a way to say hello." wide />
         </div>
+      </section>
+
+      <section style={{ padding: "0 6vw 140px", maxWidth: "1040px", margin: "0 auto", position: "relative", zIndex: 10 }}>
+        <Link
+          href="/about"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "20px",
+            flexWrap: "wrap",
+            background: "var(--paper)",
+            border: "1px solid var(--paper-edge)",
+            borderRadius: "6px",
+            padding: "30px 34px",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div
+              style={{
+                width: "52px",
+                height: "52px",
+                borderRadius: "50%",
+                flexShrink: 0,
+                background: "linear-gradient(160deg, var(--moss) 0%, var(--gold) 100%)",
+              }}
+            />
+            <div>
+              <p className="display" style={{ fontStyle: "italic", fontSize: "19px" }}>
+                a little about the one writing
+              </p>
+              <p style={{ fontSize: "13.5px", color: "var(--ink-soft)", marginTop: "4px" }}>
+                Who&apos;s behind these pages, and a way to say hello.
+              </p>
+            </div>
+          </div>
+          <span style={{ fontSize: "13.5px", color: "var(--ink)", whiteSpace: "nowrap" }}>Meet the writer →</span>
+        </Link>
       </section>
     </main>
   );
@@ -67,13 +106,11 @@ function PreviewPanel({
   num,
   title,
   text,
-  wide,
 }: {
   href: string;
   num: string;
   title: string;
   text: string;
-  wide?: boolean;
 }) {
   return (
     <Link
@@ -87,7 +124,6 @@ function PreviewPanel({
         justifyContent: "space-between",
         textDecoration: "none",
         color: "inherit",
-        gridColumn: wide ? "span 2" : undefined,
       }}
     >
       <span style={{ fontSize: "12px", color: "var(--moss)", letterSpacing: "0.1em" }}>{num}</span>
