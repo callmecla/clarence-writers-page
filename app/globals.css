@@ -49,6 +49,19 @@ main {
   z-index: 10;
 }
 
+/* ---------- homepage tiles ---------- */
+.home-tile {
+  position: relative;
+  border: 1px solid var(--paper-edge);
+  border-top: 3px solid var(--accent, var(--paper-edge));
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+}
+.home-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 44px -22px rgba(20, 15, 10, 0.4);
+  border-color: var(--accent);
+}
+
 /* ---------- cursor-reactive parallax (respects reduced motion) ---------- */
 .clouds, .birds, .fireflies, .petals-layer, .stardust-layer,
 .dust-layer, .embers-layer, .star-layer {
@@ -503,6 +516,8 @@ html[data-theme="day"] .aurora-band { opacity: 0.22; mix-blend-mode: multiply; }
 
 /* ---------- page transitions ---------- */
 .page-transition {
+  position: relative;
+  z-index: 10;
   animation: pageEnter 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 @keyframes pageEnter {
