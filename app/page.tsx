@@ -55,7 +55,7 @@ export default function Home() {
           <PreviewPanel href="/poetry" num="Poetry" title="short lines, held gently" text="A growing collection of poems — click a star to read one." />
           <PreviewPanel href="/diary" num="Diary" title="not everything, but something true" text="Reflections and fragments, posted when they're ready." />
           <PreviewPanel href="/photos" num="Photographs" title="the light that started it" text="Images that inspired a page, a line, or a quiet afternoon." />
-          <PreviewPanel href="/about" num="About" title="a little about the one writing" text="Who's behind these pages, and a way to say hello." />
+          <PreviewPanel href="/about" num="About" title="a little about the one writing" text="Who's behind these pages, and a way to say hello." wide />
         </div>
       </section>
     </main>
@@ -67,11 +67,13 @@ function PreviewPanel({
   num,
   title,
   text,
+  wide,
 }: {
   href: string;
   num: string;
   title: string;
   text: string;
+  wide?: boolean;
 }) {
   return (
     <Link
@@ -85,6 +87,7 @@ function PreviewPanel({
         justifyContent: "space-between",
         textDecoration: "none",
         color: "inherit",
+        gridColumn: wide ? "span 2" : undefined,
       }}
     >
       <span style={{ fontSize: "12px", color: "var(--moss)", letterSpacing: "0.1em" }}>{num}</span>

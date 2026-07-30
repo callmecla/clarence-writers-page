@@ -41,6 +41,14 @@ body {
   font-family: var(--font-display), serif;
 }
 
+/* Ensure real page content always stacks above decorative fixed overlays
+   (ambient background, cursor light) — without this, position:fixed
+   elements paint above ordinary content by default regardless of z-index */
+main {
+  position: relative;
+  z-index: 10;
+}
+
 /* ---------- cursor-reactive parallax (respects reduced motion) ---------- */
 .clouds, .birds, .fireflies, .petals-layer, .stardust-layer,
 .dust-layer, .embers-layer, .star-layer {
@@ -285,7 +293,7 @@ body {
   height: 55%;
   filter: blur(50px);
   mix-blend-mode: screen;
-  opacity: 0.35;
+  opacity: 0.42;
   animation: auroraFlow ease-in-out infinite;
 }
 html[data-theme="day"] .aurora-band { opacity: 0.22; mix-blend-mode: multiply; }
@@ -320,7 +328,7 @@ html[data-theme="day"] .aurora-band { opacity: 0.22; mix-blend-mode: multiply; }
   height: 70px;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 40;
+  z-index: 5;
   opacity: 0;
   transition: opacity 0.4s ease;
   background:
@@ -911,14 +919,14 @@ html[data-theme="day"][data-mood="aurora"] {
   --paper-edge: #e2dcee;
 }
 html[data-theme="night"][data-mood="aurora"] {
-  --sky-top: #131022;
-  --sky-bottom: #0c1616;
-  --ink: #ece8f5;
-  --ink-soft: #b9b2ce;
-  --moss: #7fc494;
-  --gold: #e6bc7a;
-  --paper: #181428;
-  --paper-edge: #292440;
+  --sky-top: #2a1f4a;
+  --sky-bottom: #16302a;
+  --ink: #f3ecf8;
+  --ink-soft: #c7bfe0;
+  --moss: #8fd6a3;
+  --gold: #f0c987;
+  --paper: #241c3c;
+  --paper-edge: #362a54;
 }
 
 /* Photos — dusk: warm golden-hour amber and copper, camera-vignette feel */
