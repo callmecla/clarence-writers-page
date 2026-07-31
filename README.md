@@ -74,6 +74,29 @@ it in client-side code — it's only ever used inside
 `app/api/guestbook/route.ts`, which runs on the server. Add it to Vercel's
 Environment Variables too when you deploy, the same as the other secrets.
 
+## Security notes
+
+The contact form and guestbook are the two places on this site anyone on
+the internet can write to, so they've got some basic hardening:
+
+- **Honeypot fields** — both forms have a hidden field real visitors never
+  see. Bots that auto-fill every input on a page trip it; submissions from
+  it are silently ignored.
+- **Rate limiting** — 5 contact messages / 3 guestbook lights per IP every
+  10 minutes. Honest limitation: this is in-memory, so on Vercel it resets
+  whenever a function cold-starts and isn't shared across instances. It's
+  a real deterrent against casual abuse, not a bulletproof defense. If this
+  site ever gets serious bot traffic, the proper next step is a Redis-backed
+  limiter (e.g. Upstash + `@upstash/ratelimit`).
+- **Server-side validation** — email format, length limits — since anything
+  only checked in the browser can be bypassed by calling the API directly.
+
+One thing worth knowing: your `SANITY_API_TOKEN` has **Editor** permissions,
+which can create *any* content type, not just guestbook lights — Sanity's
+free tier doesn't support scoping a token down to one schema type. In
+practice this just means: treat that token like a real secret (never commit
+it, don't share it), since it's more powerful than the guestbook alone needs.
+
 ## Contact form setup
 
 The "say hello" form on the About page sends you an email via Resend

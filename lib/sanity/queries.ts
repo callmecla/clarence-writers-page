@@ -66,6 +66,21 @@ export async function getDiaryEntries(): Promise<DiaryEntry[]> {
   );
 }
 
+export interface ContentRef {
+  _type: "novel" | "poem" | "diaryEntry" | "photo";
+  _id: string;
+}
+
+export async function getAllContentRefs(): Promise<ContentRef[]> {
+  return client.fetch(
+    `*[
+      (_type == "novel" && published == true) ||
+      (_type == "poem" && isDraft != true) ||
+      _type == "diaryEntry" ||
+      _type == "photo"
+    ]{ _type, _id }`
+  );
+}
 export interface Light {
   _id: string;
   note?: string;
