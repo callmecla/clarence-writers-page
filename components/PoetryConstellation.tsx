@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Poem } from "@/lib/sanity/queries";
+import ShareCardButton from "./ShareCardButton";
 
 // Deterministic pseudo-random position per poem so it doesn't shift between
 // server and client renders, or on re-render — based on the poem's own id.
@@ -17,11 +19,20 @@ function hashPosition(id: string, index: number) {
 export default function PoetryConstellation({ poems }: { poems: Poem[] }) {
   const [openPoem, setOpenPoem] = useState<Poem | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   const positioned = useMemo(
     () => poems.map((poem, i) => ({ poem, pos: hashPosition(poem._id, i) })),
     [poems]
   );
+
+  // Support deep links like /poetry?open=<id> — used by the "surprise me" button
+  useEffect(() => {
+    const openId = searchParams.get("open");
+    if (!openId) return;
+    const match = poems.find((p) => p._id === openId);
+    if (match) setOpenPoem(match);
+  }, [searchParams, poems]);
 
   return (
     <>
@@ -81,6 +92,7 @@ export default function PoetryConstellation({ poems }: { poems: Poem[] }) {
             >
               {openPoem.body}
             </p>
+            <ShareCardButton title={openPoem.title} body={openPoem.body} />
           </div>
         </div>
       )}

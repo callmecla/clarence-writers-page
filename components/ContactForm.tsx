@@ -8,6 +8,7 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real visitors never see/fill this
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -20,7 +21,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
       const data = await res.json();
 
@@ -83,6 +84,19 @@ export default function ContactForm() {
         maxWidth: "480px",
       }}
     >
+      {/* Honeypot field — invisible to real visitors, tabIndex/autoComplete
+          off so it's skipped by keyboard nav and browser autofill, but
+          bots that blindly fill every input will trip it. */}
+      <input
+        type="text"
+        name="website"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+      />
       <input
         type="text"
         placeholder="Your name"

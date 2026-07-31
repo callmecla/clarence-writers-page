@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import type { DiaryEntry } from "@/lib/sanity/queries";
 
@@ -8,6 +9,16 @@ export default function DiaryEntries({ entries }: { entries: DiaryEntry[] }) {
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [lastIndex, setLastIndex] = useState<number | null>(null);
   const refs = useRef<Record<string, HTMLElement | null>>({});
+  const searchParams = useSearchParams();
+
+  function highlightEntry(id: string) {
+    const el = refs.current[id];
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setHighlightedId(id);
+    window.setTimeout(() => {
+      setHighlightedId((current) => (current === id ? null : current));
+    }, 1600);
+  }
 
   function goToRandomMemory() {
     if (entries.length === 0) return;
@@ -16,16 +27,16 @@ export default function DiaryEntries({ entries }: { entries: DiaryEntry[] }) {
       index = (index + 1) % entries.length;
     }
     setLastIndex(index);
-    const entry = entries[index];
-    const el = refs.current[entry._id];
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    setHighlightedId(entry._id);
-    window.setTimeout(() => {
-      setHighlightedId((id) => (id === entry._id ? null : id));
-    }, 1600);
+    highlightEntry(entries[index]._id);
   }
+
+  // Support deep links like /diary?open=<id> — used by the "surprise me" button
+  useEffect(() => {
+    const openId = searchParams.get("open");
+    if (!openId) return;
+    if (entries.some((e) => e._id === openId)) highlightEntry(openId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, entries]);
 
   return (
     <>

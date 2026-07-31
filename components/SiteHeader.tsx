@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import SurpriseButton from "./SurpriseButton";
 
 export default function SiteHeader() {
   return (
@@ -40,13 +41,13 @@ export default function SiteHeader() {
           }}
           className="site-nav-links"
         >
-          <li><NavLink href="/">Home</NavLink></li>
           <li><NavLink href="/novels">Novels</NavLink></li>
           <li><NavLink href="/poetry">Poetry</NavLink></li>
           <li><NavLink href="/diary">Diary</NavLink></li>
           <li><NavLink href="/photos">Photographs</NavLink></li>
           <li><NavLink href="/about">About</NavLink></li>
         </ul>
+        <SurpriseButton />
         <ThemeToggle />
       </div>
     </nav>

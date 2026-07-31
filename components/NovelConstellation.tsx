@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import type { Novel } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/client";
+import ShareCardButton from "./ShareCardButton";
 
 function hashPosition(id: string, index: number, total: number) {
   let h = 0;
@@ -19,11 +21,20 @@ function hashPosition(id: string, index: number, total: number) {
 export default function NovelConstellation({ novels }: { novels: Novel[] }) {
   const [openNovel, setOpenNovel] = useState<Novel | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   const positioned = useMemo(
     () => novels.map((novel, i) => ({ novel, pos: hashPosition(novel._id, i, novels.length) })),
     [novels]
   );
+
+  // Support deep links like /novels?open=<id> — used by the "surprise me" button
+  useEffect(() => {
+    const openId = searchParams.get("open");
+    if (!openId) return;
+    const match = novels.find((n) => n._id === openId);
+    if (match) setOpenNovel(match);
+  }, [searchParams, novels]);
 
   const linePoints = positioned.map((p) => `${p.pos.left},${p.pos.top}`).join(" ");
 
@@ -148,6 +159,13 @@ export default function NovelConstellation({ novels }: { novels: Novel[] }) {
             >
               Read on Wattpad →
             </a>
+
+            <div style={{ marginTop: "14px" }}>
+              <ShareCardButton
+                title={openNovel.title}
+                body={[openNovel.logline, openNovel.originStory].filter(Boolean).join("\n\n")}
+              />
+            </div>
           </div>
         </div>
       )}

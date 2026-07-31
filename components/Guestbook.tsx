@@ -7,6 +7,7 @@ export default function Guestbook({ initialLights }: { initialLights: Light[] })
   const [lights, setLights] = useState(initialLights);
   const [showForm, setShowForm] = useState(false);
   const [note, setNote] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real visitors never see/fill this
   const [submitting, setSubmitting] = useState(false);
   const [cooldown, setCooldown] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export default function Guestbook({ initialLights }: { initialLights: Light[] })
       const res = await fetch("/api/guestbook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ note: note.trim() || undefined }),
+        body: JSON.stringify({ note: note.trim() || undefined, website }),
       });
       const data = await res.json();
 
@@ -57,6 +58,16 @@ export default function Guestbook({ initialLights }: { initialLights: Light[] })
 
       {showForm && (
         <form onSubmit={handleSubmit} className="light-form">
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+          />
           <input
             type="text"
             placeholder="a short note, if you'd like (optional)"
