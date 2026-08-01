@@ -102,3 +102,21 @@ export async function getLights(): Promise<Light[]> {
     }`
   );
 }
+
+export interface MarginaliaNote {
+  _id: string;
+  note: string;
+  targetType: "poem" | "diaryEntry";
+  targetId: string;
+  createdAt: string;
+}
+
+// Fetches every marginalia note in one go, rather than one query per poem/
+// entry — pages group them client-side by targetId.
+export async function getMarginaliaNotes(): Promise<MarginaliaNote[]> {
+  return client.fetch(
+    `*[_type == "marginaliaNote"] | order(createdAt asc) {
+      _id, note, targetType, targetId, createdAt
+    }`
+  );
+}

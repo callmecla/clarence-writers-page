@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import type { Poem } from "@/lib/sanity/queries";
+import type { Poem, MarginaliaNote } from "@/lib/sanity/queries";
 import ShareCardButton from "./ShareCardButton";
+import MarginaliaNotes from "./MarginaliaNotes";
 
 // Deterministic pseudo-random position per poem so it doesn't shift between
 // server and client renders, or on re-render — based on the poem's own id.
@@ -16,7 +17,7 @@ function hashPosition(id: string, index: number) {
   return { left, top, size };
 }
 
-export default function PoetryConstellation({ poems }: { poems: Poem[] }) {
+export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; notes: MarginaliaNote[] }) {
   const [openPoem, setOpenPoem] = useState<Poem | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -93,6 +94,13 @@ export default function PoetryConstellation({ poems }: { poems: Poem[] }) {
               {openPoem.body}
             </p>
             <ShareCardButton title={openPoem.title} body={openPoem.body} />
+
+            <MarginaliaNotes
+              key={openPoem._id}
+              targetType="poem"
+              targetId={openPoem._id}
+              initialNotes={notes.filter((n) => n.targetId === openPoem._id)}
+            />
           </div>
         </div>
       )}

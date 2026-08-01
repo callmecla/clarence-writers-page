@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
-import type { DiaryEntry } from "@/lib/sanity/queries";
+import type { DiaryEntry, MarginaliaNote } from "@/lib/sanity/queries";
+import MarginaliaNotes from "./MarginaliaNotes";
 
-export default function DiaryEntries({ entries }: { entries: DiaryEntry[] }) {
+export default function DiaryEntries({ entries, notes }: { entries: DiaryEntry[]; notes: MarginaliaNote[] }) {
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [lastIndex, setLastIndex] = useState<number | null>(null);
   const refs = useRef<Record<string, HTMLElement | null>>({});
@@ -99,6 +100,12 @@ export default function DiaryEntries({ entries }: { entries: DiaryEntry[] }) {
             <div style={{ fontSize: "15.5px", lineHeight: 1.85, color: "var(--ink)", fontWeight: 300 }}>
               <PortableText value={entry.body} />
             </div>
+
+            <MarginaliaNotes
+              targetType="diaryEntry"
+              targetId={entry._id}
+              initialNotes={notes.filter((n) => n.targetId === entry._id)}
+            />
           </article>
         ))}
       </div>
