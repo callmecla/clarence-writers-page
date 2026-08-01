@@ -46,8 +46,10 @@ photographs — built with Next.js, TypeScript, and Sanity as a free headless CM
 - Novels page (`/novels`) — shown as a connected constellation of orbs;
   click one to see its cover, logline, "where this idea came from," and a
   mood board (colors, a song, an image) — all editable per-novel in Sanity
-- Poetry page — poems shown as a clickable constellation of stars
-- Diary page — entries + a "random memory" button that scrolls & highlights
+- Poetry page — poems shown as a clickable constellation of stars, each with
+  a "save as image" button and space for visitors to leave marginalia notes
+- Diary page — entries + a "random memory" button, also with marginalia
+  notes on each entry
 - Photos page — photos tilt in 3D toward your cursor
 - About page — bio, favorite line, a "leave a light" guestbook, and a working
   contact form
