@@ -1,10 +1,10 @@
-import { getPoems } from "@/lib/sanity/queries";
+import { getPoems, getMarginaliaNotes } from "@/lib/sanity/queries";
 import PoetryConstellation from "@/components/PoetryConstellation";
 
 export const revalidate = 3600;
 
 export default async function PoetryPage() {
-  const poems = await getPoems();
+  const [poems, notes] = await Promise.all([getPoems(), getMarginaliaNotes()]);
 
   return (
     <main style={{ paddingTop: "160px" }}>
@@ -29,7 +29,7 @@ export default async function PoetryPage() {
             No poems published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <PoetryConstellation poems={poems} />
+          <PoetryConstellation poems={poems} notes={notes.filter((n) => n.targetType === "poem")} />
         )}
       </section>
     </main>

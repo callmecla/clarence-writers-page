@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
+import { Fraunces, Work_Sans, Caveat } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AmbientBackground from "@/components/AmbientBackground";
 import PageMood from "@/components/PageMood";
 import CursorLight from "@/components/CursorLight";
+import SeasonalDrift from "@/components/SeasonalDrift";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -19,6 +20,13 @@ const workSans = Work_Sans({
   weight: ["300", "400", "500"],
 });
 
+// Used only for marginalia notes — real handwriting-style scribbles
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-hand",
+  weight: ["500", "600"],
+});
+
 export const metadata: Metadata = {
   title: "hello, rencey! — a writer's collection",
   description: "Novels, poems, diary entries, and photographs.",
@@ -30,9 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="day" className={`${fraunces.variable} ${workSans.variable}`}>
+    <html lang="en" data-theme="day" className={`${fraunces.variable} ${workSans.variable} ${caveat.variable}`}>
       <body>
         <PageMood />
+        <SeasonalDrift />
         <AmbientBackground />
         <CursorLight />
         <SiteHeader />

@@ -68,27 +68,6 @@ main {
   color: var(--ink);
 }
 
-/* ---------- surprise me button ---------- */
-.surprise-btn {
-  font-family: inherit;
-  font-size: 12.5px;
-  letter-spacing: 0.02em;
-  color: var(--ink-soft);
-  background: transparent;
-  border: 1px solid var(--paper-edge);
-  border-radius: 999px;
-  padding: 7px 16px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-.surprise-btn:hover {
-  transform: translateY(-1px);
-  border-color: var(--gold);
-  color: var(--ink);
-}
-.surprise-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
-
 /* ---------- homepage tiles ---------- */
 .home-tile {
   position: relative;
@@ -371,6 +350,137 @@ html[data-theme="day"] .aurora-band { opacity: 0.22; mix-blend-mode: multiply; }
   0%, 100% { transform: translateX(0) skewY(-6deg); }
   50% { transform: translateX(10%) skewY(-2deg); }
 }
+
+/* ---------- marginalia notes ---------- */
+.marginalia {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--paper-edge);
+}
+.marginalia-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  margin-bottom: 14px;
+}
+.marginalia-note {
+  font-family: var(--font-hand), cursive;
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 3px;
+  padding: 6px 12px;
+  box-shadow: 2px 3px 6px -2px rgba(20, 15, 10, 0.25);
+  max-width: 220px;
+}
+.marginalia-add-btn {
+  font-family: var(--font-hand), cursive;
+  font-size: 16px;
+  color: var(--moss);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.marginalia-add-btn:hover { color: var(--gold); }
+.marginalia-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.marginalia-form input[type="text"]:not([name="website"]) {
+  flex: 1;
+  min-width: 180px;
+  font-family: var(--font-hand), cursive;
+  font-size: 17px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--paper-edge);
+  background: var(--paper);
+  color: var(--ink);
+}
+.marginalia-form button {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+/* ---------- seasonal drift ---------- */
+/* A subtle color-grade layered on top of every page's own mood, tied to
+   the real calendar date — a light shift in temperature, not a redesign. */
+.seasonal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.12;
+  background: var(--season-tint, transparent);
+  transition: background 1.5s ease, opacity 1.5s ease;
+}
+html[data-theme="night"] .seasonal-overlay { opacity: 0.08; }
+
+html[data-season="spring"] { --season-tint: linear-gradient(160deg, #ffd9e6, #b8e6b0); }
+html[data-season="summer"] { --season-tint: linear-gradient(160deg, #ffe29a, #ffb347); }
+html[data-season="autumn"] { --season-tint: linear-gradient(160deg, #e8a35c, #a85a2a); }
+html[data-season="winter"] { --season-tint: linear-gradient(160deg, #cfe8f3, #9fb8d9); }
+
+.seasonal-layer { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+
+/* winter: slow falling snow */
+.snowflake {
+  position: absolute;
+  top: -4%;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.75;
+  animation-name: snowFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes snowFall {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(110vh) translateX(var(--drift, 30px)); }
+}
+
+/* spring: sparse drifting blossom petals */
+.blossom {
+  position: absolute;
+  top: -6%;
+  animation-name: leafFall;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.blossom svg { display: block; animation: petalSpin ease-in-out infinite; }
+@keyframes leafFall {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(112vh) translateX(var(--drift, 50px)); }
+}
+
+/* summer: small stationary sun glints */
+.sunglint {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,225,150,0.9), rgba(255,225,150,0));
+  animation: twinkle ease-in-out infinite;
+}
+
+/* autumn: a few extra rust-toned falling leaves */
+.autumn-leaf {
+  position: absolute;
+  top: -6%;
+  animation-name: leafFall;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.autumn-leaf svg { display: block; animation: petalSpin ease-in-out infinite; }
 
 /* ---------- cursor light ---------- */
 .cursor-light {

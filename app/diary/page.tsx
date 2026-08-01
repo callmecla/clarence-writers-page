@@ -1,10 +1,10 @@
-import { getDiaryEntries } from "@/lib/sanity/queries";
+import { getDiaryEntries, getMarginaliaNotes } from "@/lib/sanity/queries";
 import DiaryEntries from "@/components/DiaryEntries";
 
 export const revalidate = 3600;
 
 export default async function DiaryPage() {
-  const entries = await getDiaryEntries();
+  const [entries, notes] = await Promise.all([getDiaryEntries(), getMarginaliaNotes()]);
 
   return (
     <main style={{ paddingTop: "160px" }}>
@@ -29,7 +29,7 @@ export default async function DiaryPage() {
             No entries published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <DiaryEntries entries={entries} />
+          <DiaryEntries entries={entries} notes={notes.filter((n) => n.targetType === "diaryEntry")} />
         )}
       </section>
     </main>
