@@ -2,9 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import type { Poem, MarginaliaNote } from "@/lib/sanity/queries";
+import { urlForImage } from "@/lib/sanity/client";
 import ShareCardButton from "./ShareCardButton";
 import MarginaliaNotes from "./MarginaliaNotes";
+import TypewriterText from "./TypewriterText";
 
 // Deterministic pseudo-random position per poem so it doesn't shift between
 // server and client renders, or on re-render — based on the poem's own id.
@@ -27,7 +30,7 @@ export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; n
     [poems]
   );
 
-  // Support deep links like /poetry?open=<id> — used by the "surprise me" button
+  // Support deep links like /poetry?open=<id>
   useEffect(() => {
     const openId = searchParams.get("open");
     if (!openId) return;
@@ -70,6 +73,18 @@ export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; n
             >
               ×
             </button>
+
+            {openPoem.image && (
+              <div className="poem-modal-image">
+                <Image
+                  src={urlForImage(openPoem.image).width(600).height(340).url()}
+                  alt={openPoem.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            )}
+
             <h2 className="display" style={{ fontStyle: "italic", fontSize: "26px", marginBottom: "6px" }}>
               {openPoem.title}
             </h2>
@@ -89,9 +104,10 @@ export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; n
                 color: "var(--ink)",
                 whiteSpace: "pre-wrap",
                 fontWeight: 300,
+                minHeight: "1.9em",
               }}
             >
-              {openPoem.body}
+              <TypewriterText key={openPoem._id} text={openPoem.body} />
             </p>
             <ShareCardButton title={openPoem.title} body={openPoem.body} />
 

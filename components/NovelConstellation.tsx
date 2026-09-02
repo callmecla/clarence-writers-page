@@ -10,12 +10,32 @@ import ShareCardButton from "./ShareCardButton";
 function hashPosition(id: string, index: number, total: number) {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  // spread orbs out more evenly than the dense poem starfield, since there
-  // are far fewer novels and each one needs room to breathe
   const bandWidth = 100 / Math.max(total, 1);
   const left = bandWidth * index + 10 + (h % Math.max(bandWidth - 20, 10));
   const top = 15 + ((h >> 4) % 55);
   return { left: Math.min(left, 90), top };
+}
+
+function isLocked(novel: Novel): boolean {
+  return !!novel.nextUpdateAt && new Date(novel.nextUpdateAt) > new Date();
+}
+
+function formatUnlockDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function formatCountdown(iso: string): string {
+  const diffMs = new Date(iso).getTime() - Date.now();
+  const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  if (days <= 0) return "very soon";
+  if (days === 1) return "in 1 day";
+  if (days < 30) return `in ${days} days`;
+  const months = Math.round(days / 30);
+  return months === 1 ? "in about a month" : `in about ${months} months`;
 }
 
 export default function NovelConstellation({ novels }: { novels: Novel[] }) {
@@ -28,7 +48,6 @@ export default function NovelConstellation({ novels }: { novels: Novel[] }) {
     [novels]
   );
 
-  // Support deep links like /novels?open=<id> — used by the "surprise me" button
   useEffect(() => {
     const openId = searchParams.get("open");
     if (!openId) return;
@@ -69,6 +88,7 @@ export default function NovelConstellation({ novels }: { novels: Novel[] }) {
             ) : (
               <span className="novel-orb-fallback" />
             )}
+            {isLocked(novel) && <span className="novel-orb-lock">🔒</span>}
             {hoveredId === novel._id && (
               <span className="novel-orb-label">
                 {novel.title}
@@ -105,6 +125,18 @@ export default function NovelConstellation({ novels }: { novels: Novel[] }) {
               <p style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--ink-soft)", marginBottom: "20px" }}>
                 {openNovel.logline}
               </p>
+            )}
+
+            {isLocked(openNovel) && openNovel.nextUpdateAt && (
+              <div className="locked-chapter-banner">
+                <span className="locked-chapter-icon">🔒</span>
+                <div>
+                  <p className="locked-chapter-title">Next chapter locked</p>
+                  <p className="locked-chapter-sub">
+                    Opens {formatUnlockDate(openNovel.nextUpdateAt)} — {formatCountdown(openNovel.nextUpdateAt)}
+                  </p>
+                </div>
+              </div>
             )}
 
             {openNovel.originStory && (

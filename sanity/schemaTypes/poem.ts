@@ -26,6 +26,13 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      description: "Optional — a photo or picture that goes with this poem",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "publishedAt",
       title: "Date written",
       type: "date",
@@ -46,6 +53,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: "title", subtitle: "publishedAt" },
+    select: { title: "title", subtitle: "publishedAt", media: "image" },
   },
 });

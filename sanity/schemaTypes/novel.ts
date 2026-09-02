@@ -80,6 +80,13 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "nextUpdateAt",
+      title: "Next chapter unlocks at",
+      type: "datetime",
+      description:
+        "Optional — set a future date to show a 'locked chapter' teaser on the site that automatically unlocks itself when this date arrives. Leave blank for no teaser.",
+    }),
+    defineField({
       name: "order",
       title: "Display order",
       type: "number",

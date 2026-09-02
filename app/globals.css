@@ -1137,3 +1137,61 @@ html[data-theme="night"][data-mood="twilight"] {
   --paper: #201620;
   --paper-edge: #33222f;
 }
+
+/* ---------- typewriter reveal (poems) ---------- */
+.typewriter-cursor {
+  display: inline-block;
+  animation: cursorBlink 0.9s step-end infinite;
+  color: var(--gold);
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.poem-modal-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+/* ---------- locked chapter teaser (novels) ---------- */
+.novel-orb-lock {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.locked-chapter-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper-edge);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+.locked-chapter-icon { font-size: 22px; flex-shrink: 0; }
+.locked-chapter-title {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.locked-chapter-sub {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+

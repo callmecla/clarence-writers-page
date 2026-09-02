@@ -14,6 +14,7 @@ export interface Novel {
   moodSong?: string;
   moodSongUrl?: string;
   moodImage?: any;
+  nextUpdateAt?: string;
 }
 
 export interface Poem {
@@ -21,6 +22,7 @@ export interface Poem {
   title: string;
   slug: { current: string };
   body: string;
+  image?: any;
   publishedAt?: string;
   isDraft?: boolean;
 }
@@ -45,7 +47,7 @@ export async function getNovels(): Promise<Novel[]> {
   return client.fetch(
     `*[_type == "novel" && published == true] | order(order asc) {
       _id, title, slug, genre, logline, cover, wattpadUrl, order,
-      originStory, moodColors, moodSong, moodSongUrl, moodImage
+      originStory, moodColors, moodSong, moodSongUrl, moodImage, nextUpdateAt
     }`
   );
 }
@@ -53,7 +55,7 @@ export async function getNovels(): Promise<Novel[]> {
 export async function getPoems(): Promise<Poem[]> {
   return client.fetch(
     `*[_type == "poem" && isDraft != true] | order(publishedAt desc) {
-      _id, title, slug, body, publishedAt
+      _id, title, slug, body, image, publishedAt
     }`
   );
 }
@@ -81,6 +83,7 @@ export async function getAllContentRefs(): Promise<ContentRef[]> {
     ]{ _type, _id }`
   );
 }
+
 export interface Light {
   _id: string;
   note?: string;
@@ -111,8 +114,6 @@ export interface MarginaliaNote {
   createdAt: string;
 }
 
-// Fetches every marginalia note in one go, rather than one query per poem/
-// entry — pages group them client-side by targetId.
 export async function getMarginaliaNotes(): Promise<MarginaliaNote[]> {
   return client.fetch(
     `*[_type == "marginaliaNote"] | order(createdAt asc) {
