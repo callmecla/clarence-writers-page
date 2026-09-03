@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getDiaryEntries, getMarginaliaNotes } from "@/lib/sanity/queries";
 import DiaryEntries from "@/components/DiaryEntries";
 
@@ -29,7 +30,9 @@ export default async function DiaryPage() {
             No entries published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <DiaryEntries entries={entries} notes={notes.filter((n) => n.targetType === "diaryEntry")} />
+          <Suspense fallback={null}>
+            <DiaryEntries entries={entries} notes={notes.filter((n) => n.targetType === "diaryEntry")} />
+          </Suspense>
         )}
       </section>
     </main>

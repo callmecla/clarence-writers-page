@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getNovels } from "@/lib/sanity/queries";
 import NovelConstellation from "@/components/NovelConstellation";
 
@@ -29,7 +30,9 @@ export default async function NovelsPage() {
             No novels published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <NovelConstellation novels={novels} />
+          <Suspense fallback={null}>
+            <NovelConstellation novels={novels} />
+          </Suspense>
         )}
       </section>
     </main>

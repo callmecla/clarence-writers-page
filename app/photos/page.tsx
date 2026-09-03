@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getPhotos } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/client";
 import PhotosGrid from "@/components/PhotosGrid";
@@ -30,14 +31,16 @@ export default async function PhotosPage() {
             No photographs published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <PhotosGrid
-            photos={photos.map((photo) => ({
-              _id: photo._id,
-              src: urlForImage(photo.image).width(700).height(875).url(),
-              alt: photo.caption || "Photograph",
-              caption: photo.caption,
-            }))}
-          />
+          <Suspense fallback={null}>
+            <PhotosGrid
+              photos={photos.map((photo) => ({
+                _id: photo._id,
+                src: urlForImage(photo.image).width(700).height(875).url(),
+                alt: photo.caption || "Photograph",
+                caption: photo.caption,
+              }))}
+            />
+          </Suspense>
         )}
       </section>
     </main>

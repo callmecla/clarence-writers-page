@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getPoems, getMarginaliaNotes } from "@/lib/sanity/queries";
 import PoetryConstellation from "@/components/PoetryConstellation";
 
@@ -29,7 +30,9 @@ export default async function PoetryPage() {
             No poems published yet — add one in the Sanity Studio and it&apos;ll show up here.
           </p>
         ) : (
-          <PoetryConstellation poems={poems} notes={notes.filter((n) => n.targetType === "poem")} />
+          <Suspense fallback={null}>
+            <PoetryConstellation poems={poems} notes={notes.filter((n) => n.targetType === "poem")} />
+          </Suspense>
         )}
       </section>
     </main>
