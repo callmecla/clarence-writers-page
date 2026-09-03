@@ -7,7 +7,6 @@ import type { Poem, MarginaliaNote } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/client";
 import ShareCardButton from "./ShareCardButton";
 import MarginaliaNotes from "./MarginaliaNotes";
-import TypewriterText from "./TypewriterText";
 
 // Deterministic pseudo-random position per poem so it doesn't shift between
 // server and client renders, or on re-render — based on the poem's own id.
@@ -104,10 +103,9 @@ export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; n
                 color: "var(--ink)",
                 whiteSpace: "pre-wrap",
                 fontWeight: 300,
-                minHeight: "1.9em",
               }}
             >
-              <TypewriterText key={openPoem._id} text={openPoem.body} />
+              {openPoem.body}
             </p>
             <ShareCardButton title={openPoem.title} body={openPoem.body} />
 

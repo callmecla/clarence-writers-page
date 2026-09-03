@@ -207,21 +207,25 @@ main {
 .poem-star {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff, rgba(255,255,255,0.2));
-  box-shadow: 0 0 8px 2px rgba(255,255,255,0.5);
+  background: radial-gradient(circle, #fffdf3 0%, #ffe9b0 30%, #f0b94a 65%, rgba(240, 185, 74, 0) 100%);
+  box-shadow: 0 0 4px 1px #fff, 0 0 16px 5px rgba(240, 185, 74, 0.75);
   border: none;
   cursor: pointer;
   padding: 0;
   transform: translate(-50%, -50%);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
-  animation: twinkle 3s ease-in-out infinite;
+  animation: poemStarPulse 2.4s ease-in-out infinite;
+  z-index: 3;
+}
+@keyframes poemStarPulse {
+  0%, 100% { box-shadow: 0 0 4px 1px #fff, 0 0 16px 5px rgba(240, 185, 74, 0.75); }
+  50% { box-shadow: 0 0 6px 2px #fff, 0 0 22px 8px rgba(240, 185, 74, 0.9); }
 }
 .poem-star:hover,
 .poem-star:focus-visible {
   transform: translate(-50%, -50%) scale(2.4);
-  box-shadow: 0 0 18px 6px rgba(255,255,255,0.75);
+  box-shadow: 0 0 8px 3px #fff, 0 0 26px 10px rgba(240, 185, 74, 1);
   animation-play-state: paused;
-  opacity: 1 !important;
 }
 .poem-label {
   position: absolute;
@@ -1194,4 +1198,3 @@ html[data-theme="night"][data-mood="twilight"] {
   color: var(--ink-soft);
   margin-top: 2px;
 }
-
