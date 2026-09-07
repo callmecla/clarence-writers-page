@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import type { Poem, MarginaliaNote } from "@/lib/sanity/queries";
@@ -8,26 +8,9 @@ import { urlForImage } from "@/lib/sanity/client";
 import ShareCardButton from "./ShareCardButton";
 import MarginaliaNotes from "./MarginaliaNotes";
 
-// Deterministic pseudo-random position per poem so it doesn't shift between
-// server and client renders, or on re-render — based on the poem's own id.
-function hashPosition(id: string, index: number) {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  const left = 4 + ((h + index * 37) % 92);
-  const top = 8 + ((h >> 3) + index * 53) % 78;
-  const size = 6 + (h % 5); // 6-10px
-  return { left, top, size };
-}
-
 export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; notes: MarginaliaNote[] }) {
   const [openPoem, setOpenPoem] = useState<Poem | null>(null);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const searchParams = useSearchParams();
-
-  const positioned = useMemo(
-    () => poems.map((poem, i) => ({ poem, pos: hashPosition(poem._id, i) })),
-    [poems]
-  );
 
   // Support deep links like /poetry?open=<id>
   useEffect(() => {
@@ -39,25 +22,25 @@ export default function PoetryConstellation({ poems, notes }: { poems: Poem[]; n
 
   return (
     <>
-      <div className="constellation-wrap">
-        {positioned.map(({ poem, pos }) => (
+      <div className="poem-list">
+        {poems.map((poem) => (
           <button
             key={poem._id}
-            className="poem-star"
-            style={{
-              left: pos.left + "%",
-              top: pos.top + "%",
-              width: pos.size,
-              height: pos.size,
-            }}
-            onMouseEnter={() => setHoveredId(poem._id)}
-            onMouseLeave={() => setHoveredId((id) => (id === poem._id ? null : id))}
-            onFocus={() => setHoveredId(poem._id)}
-            onBlur={() => setHoveredId((id) => (id === poem._id ? null : id))}
+            className="poem-list-item"
             onClick={() => setOpenPoem(poem)}
             aria-label={`Read ${poem.title}`}
           >
-            {hoveredId === poem._id && <span className="poem-label">{poem.title}</span>}
+            <span className="poem-list-star" aria-hidden="true" />
+            <span className="poem-list-title">{poem.title}</span>
+            {poem.publishedAt && (
+              <span className="poem-list-date">
+                {new Date(poem.publishedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            )}
           </button>
         ))}
       </div>
